@@ -1,18 +1,26 @@
 const bcrypt = require('bcrypt'); // Hashage de passwords //
 const jwt = require('jsonwebtoken'); // Sécurisation de la connection grâce à des tokens uniques //
+const connectmysql = require('../config/connectmysql'); // Connection base de données //
 
-const User = require('../models/User'); // Importation du modèle User //
 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10) //Fonction pour hasher un mot de passe fonc async//
         .then(hash => { // On récupére le hash //
-            const user = new User({  // On prend ce mot de passe crypté pour créer un nouvel utilisateur //
-                email: req.body.email, // Avec l'adresse mail passé //
-                password: hash // Et le password hashé //
+            const email = req.body.email;
+            const password = hash;            
+            const lastName = req.body.lastName;
+            const firstName = req.body.firstName;
+            // Insertion base de données //
+            const queryUsers = "INSERT INTO users (email, password, lastname, firstname) VALUES (?, ?, ?, ?)";
+            // Enregistrement de l'utilisateur dans la base de données //
+            const insertUsers = [email, password, lastname, firstname];
+            connection.query(queryUsers, insertUsers, (error, rows, fields) => {
+                if (error) {
+                    return res.status(400).json({ message: 'Utilisateur non créé' });
+                }
+                    res.status(201).json({ message: 'Utilisateur créé' });
+
             });
-            user.save() // Enregistrement de l'utilisateur dans la base de données //
-                .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-                .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
 };
