@@ -1,6 +1,6 @@
 const mysql = require("mysql"); //On initialise le module dans une variable avec require()//
 
-const connectmysql = mysql.createConnection({
+const dbConnection = mysql.createConnection({
 
     host: "localhost",
 
@@ -13,10 +13,10 @@ const connectmysql = mysql.createConnection({
     multipleStatements: true
 });
 
-connectmysql.connect(function (err) {
+dbConnection.connect(function (err) {
     if (err) throw err;
     console.log("Connecté à la base de données groupomaniadb !");
 });
 
-module.exports = connectmysql;
+module.exports = dbConnection;
 

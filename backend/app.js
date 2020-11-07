@@ -3,7 +3,7 @@ const bodyParser = require('body-parser'); // Pour extraire l'objet JSON de la d
 
 const path = require('path');
 
-// const messageRoutes = require("./routes/message"); // Importation de la route Message //
+// Importation des routeurs //
 const userRoutes = require("./routes/user"); // Importation de la route user //
 
 
@@ -22,8 +22,8 @@ app.use(bodyParser.json()); // App requiert BodyParser //
 
 app.use('/images', express.static(path.join(__dirname, 'images'))); // Pour toute requête envoyée à /images/, on sert ce dossier statique image //
 
-// app.use('/api/messages', messageRoutes); // Pour cette route là, on utilise le router de userRoutes //
-app.use('/api/auth', userRoutes); // On enregistre les routes //
+// Enregistrement des routeurs //
+app.use('/api/auth', userRoutes);
 
 
 module.exports = app; // On exporte app //
