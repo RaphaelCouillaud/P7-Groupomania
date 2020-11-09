@@ -1,10 +1,13 @@
-const multer = require('multer'); // On importe multer //
+// Gestion des fichiers entrants dans les requêtes HTTP avec multer //
+const multer = require('multer');
 
+// Librairie de traduction des types de fichiers //
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
-    'image/png': 'png'
-}; // Objet de traduction des types de fichiers //
+    'image/png': 'png',
+    'image/gif': 'gif'
+}; 
 
 const storage = multer.diskStorage({ // Objet storage pour avoir des noms de fichiers uniques //
     destination: (req, file, callback) => { // Req, fichier et callback //

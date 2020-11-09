@@ -3,23 +3,24 @@ const jwt = require('jsonwebtoken'); // Sécurisation de la connection grâce à
 const connectmysql = require('../config/connectmysql'); // Connection base de données //
 
 // Exportation des fonctions //
-// Fonction signup //
+// Fonction signup, sauvegarde d'un nouvel utilisateur //
 exports.signup = (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    const lastName = req.body.lastName;
-    const firstName = req.body.firstName;
-    const jobTitle = req.body.jobTitle;
+    // Paramètres //
+    let email = req.body.email;
+    let password = req.body.password;
+    let lastName = req.body.lastName;
+    let firstName = req.body.firstName;
+    let jobTitle = req.body.jobTitle;
     bcrypt.hash(password, 10) //Fonction pour hasher un mot de passe fonc async//
-        .then(hash => { // On récupére le hash //            
+        .then(hash => { // On récupére le hash //                   
             // Requête SQL base de données //
-            const queryUsers = "INSERT INTO users (email, password, lastname, firstname, jobtitle) VALUES (?, ?, ?, ?)";
+             let signupQuery = "INSERT INTO user VALUES (?, ?, ?, ?, ?)";
             // Enregistrement de l'utilisateur dans la base de données //
-            const insertUsers = [email, hash, lastname, firstname, jobtitle];
+            const insertsQuery = [email, hash, lastname, firstname, jobtitle];
             // Envoi de la requête //
-            connectmysql.query(queryUsers, insertUsers, (error, rows, fields) => {
+            connectmysql.query(signupQuery, insertsQuery, (error, rows, fields) => {
                 if (error) {
-                    return res.status(400).json({ message: 'Utilisateur non créé' });
+                    return res.status(500).json({ message: 'Utilisateur non créé' });
                 }
                     res.status(201).json({ message: 'Utilisateur créé' });
             });
@@ -54,41 +55,7 @@ exports.login = (req, res, next) => {
            
         })
 };
-// Fonction suppression user //
-exports.deleteUser = (req, res, next) => {
-    const getId = req.params.id; // On trouve l'objet dans la base de données //
-    const queryId = "DELETE FROM users WHERE id=?";
-    const insertId = [id];
-    connectmysql.query(queryId, insertId, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ message: 'Utilisateur non supprimé' });
-        }
-        res.status(200).json({ message: 'Utilisateur supprimé' });
 
-    });
-};
-
-// Fonction obtention users //
-exports.getAllUsers = (req, res, next) => {
-    const queryString = "SELECT lastname FROM users WHERE id=1";
-    connectmysql.query(queryString, (error, rows, fields) => {
-        if (error) {
-            return res.status(500).json({ message: 'Liste utilisateurs non disponible' });
-        }
-        else {
-            if(rows[0]) {
-                res.status(200).json(rows);
-            }
-        }
-    }
-    );
-};
     
     
 
-
-
-
-// Fonction obtention user //
-
-// Fonction modification user //

@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser'); // Pour extraire l'objet JSON de la demande //
-
 const path = require('path');
 
 // Importation des routeurs //
 const userRoutes = require("./routes/user"); // Importation de la route user //
+const accountRoutes = require("./routes/account"); // Importation de la route account //
 
 
 
@@ -24,6 +24,7 @@ app.use('/images', express.static(path.join(__dirname, 'images'))); // Pour tout
 
 // Enregistrement des routeurs //
 app.use('/api/auth', userRoutes);
+app.use('/api/accounts', accountRoutes); 
 
 
 module.exports = app; // On exporte app //
