@@ -6,21 +6,20 @@ const connectmysql = require('../config/connectmysql'); // Connection base de do
 // Fonction signup, sauvegarde d'un nouvel utilisateur //
 exports.signup = (req, res, next) => {
     // Paramètres //
-    let email = req.body.email;
-    let password = req.body.password;
-    let lastName = req.body.lastName;
-    let firstName = req.body.firstName;
-    let jobTitle = req.body.jobTitle;
+    const email = req.body.email;
+    const password = req.body.password;
+    const lastname = req.body.lastname;
+    const firstname = req.body.firstname;
+    const jobtitle = req.body.jobtitle;
     bcrypt.hash(password, 10) //Fonction pour hasher un mot de passe fonc async//
         .then(hash => { // On récupére le hash //                   
             // Requête SQL base de données //
-             let signupQuery = "INSERT INTO user VALUES (?, ?, ?, ?, ?)";
-            // Enregistrement de l'utilisateur dans la base de données //
-            const insertsQuery = [email, hash, lastname, firstname, jobtitle];
+            let signupQuery = "INSERT INTO users (email, hash, lastname, firstname, jobtitle) VALUES (?, ?, ?, ?, ?)"; 
+            let insertQuery = [email, hash, lastname, firstname, jobtitle];
             // Envoi de la requête //
-            connectmysql.query(signupQuery, insertsQuery, (error, rows, fields) => {
+            dbConnection.query(signupQuery, insertQuery, (error, rows, fields) => {
                 if (error) {
-                    return res.status(500).json({ message: 'Utilisateur non créé' });
+                    return res.status(400).json({ error: 'Utilisateur non créé' });
                 }
                     res.status(201).json({ message: 'Utilisateur créé' });
             });
@@ -32,10 +31,10 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
     const email = req.body.email;
     const login = [email];
-    const queryLogin = ("SELECT id, firstname, lastname, email, password, jobtitle FROM Users WHERE email = ?");
-    connectmysql.query(queryLogin, login, (error, rows, fields) => {
+    const logQuery = ("SELECT id, firstname, lastname, email, password, jobtitle FROM users WHERE email = ?");
+    dbConnection.query(login, logQuery, (error, rows, fields) => {
         if (error) {
-            return res.status(401).json({ message: 'Utilisateur non créé' });
+            return res.status(401).json({ error: 'Utilisateur non créé' });
         }
         bcrypt.compare(req.body.password, user.password)
         .then(valid => {

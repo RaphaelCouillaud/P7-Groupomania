@@ -5,6 +5,8 @@ const path = require('path');
 // Importation des routeurs //
 const userRoutes = require("./routes/user"); // Importation de la route user //
 const accountRoutes = require("./routes/account"); // Importation de la route account //
+const messageRoutes = require("./routes/message"); // Importation de la route message //
+const answerRoutes = require("./routes/answer"); // Importation de la route answer //
 
 
 
@@ -25,6 +27,8 @@ app.use('/images', express.static(path.join(__dirname, 'images'))); // Pour tout
 // Enregistrement des routeurs //
 app.use('/api/auth', userRoutes);
 app.use('/api/accounts', accountRoutes); 
+app.use('/api/messages', messageRoutes); 
+app.use('/api/answers', answerRoutes); 
 
 
 module.exports = app; // On exporte app //
