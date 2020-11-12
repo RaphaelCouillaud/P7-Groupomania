@@ -1,12 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <header>
+      <router-link v-if="userToken" to="/">Home</router-link>
+      <img src="../src/assets/logo.png" alt="Logo Groupomania Connect" id="logo" />
+      <router-link class="signup" v-if="!userToken" to="/signup">Sign Up</router-link>
+      <router-link class="login" v-if="!userToken" to="/login">Sign In</router-link>   
+      <a href="logout" v-if="userToken" v-on:click.prevent ="logout" to="/">Log Out</a>
+    </header>
     <router-view/>
+
+    <footer>
+      <p>Application développée par <a href="agenceweb">CONNECT-E</a></p>
+      <p><a href="mentions">Mentions légales</a></p>
+    </footer>
+
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+      return {
+        userToken: sessionStorage.getItem("jwt") !==null
+      }
+    },
+  methods: {
+    logout () {
+      sessionStorage.clear();
+      window.location.href = "/login";
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -19,8 +44,8 @@
   
 }
 
-#nav {
-  padding: 30px;
+header {
+  background-color: #0c2444;
   
 
   a {
