@@ -1,4 +1,4 @@
-const connectmysql = require('../config/connectmysql'); // Connection base de données //
+const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
 
 
 // Suppression d'un compte //

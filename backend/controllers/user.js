@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt'); // Hashage de passwords //
 const jwt = require('jsonwebtoken'); // Sécurisation de la connection grâce à des tokens uniques //
-const connectmysql = require('../config/connectmysql'); // Connection base de données //
+const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
 
 // Exportation des fonctions //
 // Fonction signup, sauvegarde d'un nouvel utilisateur //

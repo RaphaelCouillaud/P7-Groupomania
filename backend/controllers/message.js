@@ -1,4 +1,4 @@
-const connectmysql = require('../config/connectmysql'); // Connection base de données //
+const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
 const fs = require ('fs'); // Création et gestion des fichiers //
 
 //router.post('/', auth, multer, messageControl.createMessage);

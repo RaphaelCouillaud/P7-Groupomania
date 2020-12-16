@@ -6,7 +6,7 @@ const dbConnection = mysql.createConnection({
 
     user: "root",
 
-    password: "",
+    password: "", //Indiquer mot de passe mysql//
 
     database: "groupomaniadb",
 
