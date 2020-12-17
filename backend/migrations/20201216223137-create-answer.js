@@ -9,13 +9,27 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       content: {
+        allowNull: false,
         type: Sequelize.TEXT
       },
-      date: {
-        type: Sequelize.DATE
+      messageId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+          references: {
+          model: "messages",
+          key: "id",
+          as: "messageId"
+        }
       },
-      messagesId: {
-        type: Sequelize.INTEGER
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+          as: "userId"
+        }
       },
       createdAt: {
         allowNull: false,

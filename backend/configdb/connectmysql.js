@@ -1,4 +1,4 @@
-const mysql = require("mysql"); //On initialise le module dans une variable avec require()//
+/*const mysql = require("mysql"); //On initialise le module dans une variable avec require()//
 
 const dbConnection = mysql.createConnection({
 
@@ -18,5 +18,5 @@ dbConnection.connect(function (err) {
     console.log("Connecté à la base de données groupomaniadb !");
 });
 
-module.exports = dbConnection;
+module.exports = dbConnection;*/
 

@@ -4,7 +4,8 @@ const router = express.Router();
 
 const answerControl = require('../controllers/answer');
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
+// Pas de multer car réponses text seulement autorisées//
+
 
 
 // On rajoute les middlewares auth et multer sur les routes qu'on veut protéger //
