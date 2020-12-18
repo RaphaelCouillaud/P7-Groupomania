@@ -2,7 +2,7 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  var Answer = sequelize.define('answers', {
+  var Answer = sequelize.define('Answer', {
     content: DataTypes.TEXT,
     date: DataTypes.DATE,
     messageId: DataTypes.INTEGER,
@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
   
   Answer.associate = function (models) {
     //Associations can be define here//
-    Answer.belongsTo(models.user, {
+    Answer.belongsTo(models.User, {
       foreignKey: 'userId',
      
     });
-    Answer.belongsTo(models.message, {
+    Answer.belongsTo(models.Message, {
       foreignKey: 'messageId',
       onDelete: 'CASCADE', // Si on supprime un message, on supprime ses réponses //
     });
   }
-  return answer;
+  return Answer;
 };
