@@ -1,4 +1,5 @@
 //const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
+const Message = require('../models/message');
 const fs = require ('fs'); // Création et gestion des fichiers //
 
 //router.post('/', auth, multer, messageControl.createMessage);
@@ -9,74 +10,55 @@ const fs = require ('fs'); // Création et gestion des fichiers //
 
 // Création d'un message //
 exports.createMessage = (req, res, next) => {
-    const title = req.params.title;
-    const content = req.params.content;
-    // Protocole, nom d'hôte, images, nom du fichier //
-    const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-    const userId = req.params.userId;
-
-    let createQuery = "INSERT INTO messages (title, content, image, date, userId) VALUES (?, ?, ?, ?, ? )";
-    let messageQuery = [title, content, image, date, userId];
-    dbConnection.query(createQuery, messageQuery, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ error: 'Message non posté' });
-        }
-        res.status(201).json({ message: 'Message posté' });
+    const messageObject = JSON.parse(req.body.message); // Extraction de l'objet JSON //
+    delete messageObject.id;
+    const message = new Message({
+        ...messageObject,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // Protocole, nom d'hôte, images, nom du fichier //        
     });
+    message.save()
+        .then(() => res.status(201).json({ message: 'Sauce enregistrée !' }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 // Suppression d'un message //
 exports.deleteMessage = (req, res, next) => {
-    const id = req.params.id;       
-    let deleteQuery = "DELETE FROM messages WHERE id=?";
-    let messageQuery = [id];
-    dbConnection.query(deleteQuery, messageQuery, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ error: 'Message non supprimé' });
-        }
-        res.status(201).json({ message: 'Message supprimé' });
-    });
+    models.Message.findOne({ id: req.params.id }) // On trouve l'objet dans la base de données //
+        .then((message) => {
+            const filename = message.imageUrl.split('/images/')[1]; // Qd on le trouve, on extrait le nom du fichier //
+            fs.unlink(`images/${filename}`, () => { // On le supprime avec fs.unlink //
+                Message.deleteOne({ id: req.params.id }) // Une fois la suppression, on l'indique à la base de données //
+                    .then(() => res.status(200).json({ message: 'Sauce supprimée !' }))
+                    .catch(error => res.status(400).json({ error }));
+            });
+        })
+        .catch(error => res.status(500).json({ error }));
 };
 
 // Obtention d'un message //
 exports.getOneMessage = (req, res, next) => {
-    const id = req.params.id;
-    let chooseQuery = "SELECT id, title, content, image, date, userId FROM messages WHERE id=?";
-    let messageQuery = [id];
-    dbConnection.query(chooseQuery, messageQuery, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ error: 'Message non obtenu' });
-        }
-        res.status(201).json({ message: 'Message obtenu' });
-    });
+    models.Message.findOne({ id: req.params.id })
+        .then((message) => res.status(200).json(message))
+        .catch(error => res.status(404).json({ error }));
 };
 
 // Obtention des messages //
 exports.getAllMessages = (req, res, next) => {     
-    let listQuery = "SELECT * FROM messages";    
-    dbConnection.query(listQuery, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ error: 'Messages non obtenus' });
-        }
-        res.status(201).json({ message: 'Messages obtenus' });
-    });
+    models.Message.find()
+        .then((messages) => res.status(200).json(messages))
+        .catch(error => res.status(400).json({ error }));
 };
 
 // Création d'un message //
 exports.modifyMessage = (req, res, next) => {
-    const title = req.params.title;
-    const content = req.params.content;
-    // Protocole, nom d'hôte, images, nom du fichier //
-    const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-    const id = req.params.id;
+    const messageObject = req.file ? // Si on trouve un fichier, on utilise la même logique qu'auparavant //
+        {
+            ...JSON.parse(req.body.message), // On récupére les infos de l'objet contenues dans cette requête //
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // On modifie l'imageurl //
+        } : { ...req.body }; // Sinon on prend le corps de la requête //
+    message.updateOne({ id: req.params.id }, { ...messageObject, id: req.params.id }) // On prend l'objet créé et on modifie son identifiant pour correspondre à l'id des paramètres de requêtes //
+        .then(() => res.status(201).json({ message: 'Message modifié !' }))
+        .catch(error => res.status(400).json({ error }));
+}; 
 
-    let modifyQuery = "UPDATE messages SET title = ?, content = ?, image = ? WHERE id = ?";
-    let updateQuery = [title, content, image, id];
-    dbConnection.query(modifyQuery, updateQuery, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ error: 'Message non posté' });
-        }
-        res.status(201).json({ message: 'Message posté' });
-    });
-};
 

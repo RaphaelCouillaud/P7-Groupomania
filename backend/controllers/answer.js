@@ -1,4 +1,5 @@
 //const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
+const Answer = require('../models/answer');
 
 //router.post('/', auth, multer, answerControl.createAnswer);//
 //router.get('/', auth, answerControl.getAllAnswers);//
@@ -6,43 +7,37 @@
 
 // Création d'une réponse //
 exports.createAnswer = (req, res, next) => {
-    const userId = req.params.userId;
-    const messageId = req.params.messageId;
-    const content = req.params.content;   
-    
-
-    let createQuery = "INSERT INTO answers (userId, messageId, content, date) VALUES (?, ?, ?, ? )";
-    let messageQuery = [userId, messageId, content, date];
-    dbConnection.query(createQuery, messageQuery, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ error: 'Réponse non postée' });
-        }
-        res.status(201).json({ message: 'Réponse postée' });
-    });
+    const answerContent = req.body.content; // Extraction de l'objet JSON //
+    const userId = req.body.userId;
+    const messageId = req.body.messageId;
+    models.Answer.save({
+        UserId: userId,
+        MessageId: messageId,
+        content: content
+    })
+        .then((newAnswer) => res.status(201).json({ message: 'Réponse enregistrée !' }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 // Obtention des réponses //
 exports.getAllAnswers = (req, res, next) => {
-    let listQuery = "SELECT * FROM answers";
-    dbConnection.query(listQuery, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ error: 'Réponses non obtenues' });
-        }
-        res.status(201).json({ message: 'Réponses obtenues' });
-    });
+    Answer.find()
+        .then((answers) => res.status(200).json(answers))
+        .catch(error => res.status(400).json({ error }));
 };
 
 // Suppression d'une réponse //
 exports.deleteAnswer = (req, res, next) => {
-    const id = req.params.id;
-    let deleteQuery = "DELETE FROM answers WHERE id=?";
-    let messageQuery = [id];
-    dbConnection.query(deleteQuery, messageQuery, (error, rows, fields) => {
-        if (error) {
-            return res.status(400).json({ error: 'Message non supprimé' });
-        }
-        res.status(201).json({ message: 'Message supprimé' });
-    });
+    models.Answer.findOne({ id: req.params.id }) // On trouve l'objet dans la base de données //
+        .then((answer) => {
+            if (req.answerId == req.params.id) { // Une fois la suppression, on l'indique à la base de données //
+                Answer.deleteOne() // Méthode delete //
+                    .then(() => res.status(200).json({ message: 'Réponse supprimée' }))
+                    .catch(error => res.status(400).json({ error }));
+            } else {
+                res.status(400).json({ error })
+            }
+        });
 };
 
 
