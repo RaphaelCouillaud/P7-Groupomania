@@ -10,10 +10,10 @@ exports.createAnswer = (req, res, next) => {
     const answerContent = req.body.content; // Extraction de l'objet JSON //
     const userId = req.body.userId;
     const messageId = req.body.messageId;
-    models.Answer.save({
+    Answer.save({
         UserId: userId,
         MessageId: messageId,
-        content: content
+        answerContent: content
     })
         .then((newAnswer) => res.status(201).json({ message: 'Réponse enregistrée !' }))
         .catch(error => res.status(400).json({ error }));
@@ -21,17 +21,17 @@ exports.createAnswer = (req, res, next) => {
 
 // Obtention des réponses //
 exports.getAllAnswers = (req, res, next) => {
-    Answer.find()
+    Answer.findAll()
         .then((answers) => res.status(200).json(answers))
         .catch(error => res.status(400).json({ error }));
 };
 
 // Suppression d'une réponse //
 exports.deleteAnswer = (req, res, next) => {
-    models.Answer.findOne({ id: req.params.id }) // On trouve l'objet dans la base de données //
+    Answer.findOne({ id: req.params.id }) // On trouve l'objet dans la base de données //
         .then((answer) => {
             if (req.answerId == req.params.id) { // Une fois la suppression, on l'indique à la base de données //
-                Answer.deleteOne() // Méthode delete //
+                Answer.destroy() // Méthode delete //
                     .then(() => res.status(200).json({ message: 'Réponse supprimée' }))
                     .catch(error => res.status(400).json({ error }));
             } else {

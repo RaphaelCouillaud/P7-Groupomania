@@ -16,7 +16,7 @@ const User = require('../models/user'); // Importation du modèle User //
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)  //Fonction pour hasher un mot de passe fonction async//
         .then(hash => { // On récupére le hash //
-            const signUser = models.User.create ({//On prend ce mot de passe crypté pour créer un nouvel utilisateur //
+            const signUser = User.create ({//On prend ce mot de passe crypté pour créer un nouvel utilisateur //
                 email: req.body.email, // Avec l'adresse mail passé - Payload, on renseigne tout ce qui nous intéresse//
                 password : hash,
                 lastname : req.body.lastname,
@@ -32,7 +32,7 @@ exports.signup = (req, res, next) => {
 
 // Fonction login //
 exports.login = (req, res, next) => {
-    models.User.findOne({ email: req.body.email }) // Trouver si un utilisateur correspond à l'adresse envoyé dans la requête //
+    User.findOne({ email: req.body.email }) // Trouver si un utilisateur correspond à l'adresse envoyé dans la requête //
         .then(user => {
             if (!user) { // Pas d'user trouvé //
                 return res.status(401).json({ error: 'Utilisateur inconnu !' });
@@ -60,12 +60,12 @@ exports.login = (req, res, next) => {
     
 // Suppression d'un compte //
 exports.deleteAccount = (req, res, next) => {
-    models.User.findOne({ id: req.params.id }) // On trouve l'objet dans la base de données //
+    User.findOne({ id: req.params.id }) // On trouve l'objet dans la base de données //
         .then((user) => {
             //const filename = sauce.imageUrl.split('/images/')[1]; // Qd on le trouve, on extrait le nom du fichier //
             //fs.unlink(`images/${filename}`, () => { // On le supprime avec fs.unlink //
                 if(req.userId == req.params.id) { // Une fois la suppression, on l'indique à la base de données //
-                    user.delete() // Méthode //
+                    user.destroy() // Méthode //
                     .then(() => res.status(200).json({ message: 'Compte supprimé' }))
                     .catch(error => res.status(400).json({ error }));
                 } else { res.status(400).json({ error })
@@ -75,14 +75,14 @@ exports.deleteAccount = (req, res, next) => {
 
 // Obtention d'un compte //
 exports.getOneAccount = (req, res, next) => {
-    models.User.findOne({ id: req.params.id })
+    User.findOne({ id: req.params.id })
         .then((user) => res.status(200).json(user))
         .catch(error => res.status(404).json({ error }));
 };
 
 // Modification d'un compte //
 exports.modifyAccount = (req, res, next) => { // Modification d'une sauce //
-    models.User.findOne({ id: req.params.id })
+    User.findOne({ id: req.params.id })
         .then((user) => {
             if (req.userId == req.params.id) { 
             email = req.body.email; // Avec l'adresse mail passé //
@@ -90,7 +90,7 @@ exports.modifyAccount = (req, res, next) => { // Modification d'une sauce //
             lastname = req.body.lastname;
             firstname = req.body.firstname;
             jobtitle = req.body.jobtitle;
-            User.save()         
+            User.update()         
         .then(() => res.status(201).json({ message: 'Compte modifié !' }))
         .catch(error => res.status(400).json({ error }));
         } else {
