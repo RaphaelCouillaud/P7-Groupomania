@@ -2,8 +2,8 @@
     <header>
         <img src="../assets/logo.png" alt="Logo Groupomania Connect" />
         <nav>
-            <router-link to="/login" class="welcome-links">Connexion</router-link>
-            <router-link to="/signup" class="welcome-links">Déconnexion</router-link>
+            <router-link to="/login">Connexion</router-link>
+            <router-link to="/signup">Déconnexion</router-link>
         </nav>
     </header>
 </template>
