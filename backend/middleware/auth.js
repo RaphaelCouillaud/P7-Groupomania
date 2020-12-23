@@ -11,6 +11,6 @@ module.exports = (req, res, next) => { // On exporte un middleware //
             next();// Tout est ok donc, on passe au prochain middleware //
         }
     } catch {
-        res.status(401).json({ error: error | 'Requête non authentifiée !' });
+        res.status(401).json({ error });
     }
 };

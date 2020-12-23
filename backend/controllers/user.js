@@ -15,6 +15,15 @@ const { User } = require('../models/index'); // Importation du modèle User //
 // Fonction signup, sauvegarde d'un nouvel utilisateur //
 exports.signup = (req, res, next) => {
     //res.status(201).json(req.body)//
+    if (req.body.email == null || req.body.password == null || req.body.lastname == null) {
+        return res.status(400).json({ 'error': 'Paramètres manquants' });
+    } //Vérification de la présence des paramètres dans la requête//
+    User.findOne({
+        attributes: ['email'],
+        where: { email: req.body.email }
+    }) //Vérification si un utilisateur corresponde déjà à l'email de la DB//
+        .then((user) => {
+            if (!user) {
     bcrypt.hash(req.body.password, 10)  //Fonction pour hasher un mot de passe fonction async//
         .then(hash => { // On récupére le hash //
             console.log(hash)           
@@ -28,15 +37,17 @@ exports.signup = (req, res, next) => {
                 .then((user) => {
                     console.log(user) 
                     res.status(201).json({ message: 'Utilisateur créé !' })
-                })
-                .catch(error => res.status(400).json({ error }));
+                });
         })
-        .catch(error => res.status(500).json( {error }));
+                .catch(error => res.status(400).json({ error }));
+        }})
+        
+        .catch(error => res.status(500).json({ 'error': 'Utilisateur déjà existant' }));
 };
 
 // Fonction login //
 exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email }) // Trouver si un utilisateur correspond à l'adresse envoyé dans la requête //
+    User.findOne({ where : {email: req.body.email }}) // Trouver si un utilisateur correspond à l'adresse envoyé dans la requête //
         .then(user => {
             if (!user) { // Pas d'user trouvé //
                 return res.status(401).json({ error: 'Utilisateur inconnu !' });
@@ -51,7 +62,7 @@ exports.login = (req, res, next) => {
                         token: jwt.sign( // Un token - Fonction sign de JsonWebToken//
                             { userId: user.id }, // 1er argument : données à encoder //
                             'RANDOM_TOKEN_SECRET', // 2ème : clé secréte encodage //
-                            { expiresIn: '12h' }// 3 :argument de configuration //
+                            { expiresIn: '24h' }// 3 :argument de configuration //
                         )
                     });
                 })
@@ -64,7 +75,7 @@ exports.login = (req, res, next) => {
     
 // Suppression d'un compte //
 exports.deleteAccount = (req, res, next) => {
-    User.findOne({ id: req.params.id }) // On trouve l'objet dans la base de données //
+    User.findOne({ where: { id: req.params.id }}) // On trouve l'objet dans la base de données //
         .then((user) => {
             //const filename = sauce.imageUrl.split('/images/')[1]; // Qd on le trouve, on extrait le nom du fichier //
             //fs.unlink(`images/${filename}`, () => { // On le supprime avec fs.unlink //
@@ -72,14 +83,15 @@ exports.deleteAccount = (req, res, next) => {
                     user.destroy() // Méthode //
                     .then(() => res.status(200).json({ message: 'Compte supprimé' }))
                     .catch(error => res.status(400).json({ error }));
-                } else { res.status(400).json({ error })
+                } else {
+                    res.status(400).json({ error })
                 }
             });
         };
 
 // Obtention d'un compte //
 exports.getOneAccount = (req, res, next) => {
-    User.findOne({ id: req.params.id })
+    User.findOne({ where : { id: req.params.id }})
         .then((user) => res.status(200).json(user))
         .catch(error => res.status(404).json({ error }));
 };
