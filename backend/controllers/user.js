@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt'); // Hashage de passwords //
 const jwt = require('jsonwebtoken'); // Sécurisation de la connection grâce à des tokens uniques //
 //const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
-const User = require('../models/user'); // Importation du modèle User //
+const { User } = require('../models/index'); // Importation du modèle User //
 
 //router.post('/signup', userControl.signup);
 //router.post('/login', userControl.login);
@@ -14,20 +14,24 @@ const User = require('../models/user'); // Importation du modèle User //
 // Exportation des fonctions //
 // Fonction signup, sauvegarde d'un nouvel utilisateur //
 exports.signup = (req, res, next) => {
+    //res.status(201).json(req.body)//
     bcrypt.hash(req.body.password, 10)  //Fonction pour hasher un mot de passe fonction async//
         .then(hash => { // On récupére le hash //
-            const signUser = User.create ({//On prend ce mot de passe crypté pour créer un nouvel utilisateur //
+            console.log(hash)           
+             const signUser = User.create ({//On prend ce mot de passe crypté pour créer un nouvel utilisateur //
                 email: req.body.email, // Avec l'adresse mail passé - Payload, on renseigne tout ce qui nous intéresse//
                 password : hash,
                 lastname : req.body.lastname,
                 firstname : req.body.firstname,
                 jobtitle : req.body.jobtitle
-            });
-            signUser.save() // Enregistrement de l'utilisateur dans la base de données //
-                .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+            })
+                .then((user) => {
+                    console.log(user) 
+                    res.status(201).json({ message: 'Utilisateur créé !' })
+                })
                 .catch(error => res.status(400).json({ error }));
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json( {error }));
 };
 
 // Fonction login //

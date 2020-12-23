@@ -16,7 +16,7 @@ Message.associate = function (models) {
     foreignKey: 'userId',
     onDelete: 'CASCADE', // Si on supprime un user, on supprime ses messages //
   });
-  Message.hasMany(models.answer, {
+  Message.hasMany(models.Answer, {
     foreignKey: 'messageId',
     as: 'answers', //Sequelize defaults to using the pluralized model name//
     //Un message peut avoir plusieurs réponses//
