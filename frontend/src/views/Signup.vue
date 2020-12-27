@@ -1,28 +1,28 @@
 <template>
-     <NavDisconnected></NavDisconnected>
+     
           <div class="blocsignup">
-           
+           <NavDisconnected></NavDisconnected>
             <h2>Pour rejoindre la communauté Groupomania, merci de remplir ce formulaire</h2>
             <form v-on:submit.prevent="signup" id="form-signup" >
               <div class="form-group">
                 <label for="lastname">Nom :</label>
-                <input type="text" id="lastname" name="lastname" class="form-control" required  v-model="inputDatas.lastname"/>
+                <input type="text" id="lastname" name="lastname" class="form-control" required  v-model="inputSignup.lastname"/>
               </div>
               <div class="form-group">
                 <label for="firstname">Prénom :</label>
-                <input type="text" id="firstname" name="firstname" class="form-control" required v-model="inputDatas.firstname"/>
+                <input type="text" id="firstname" name="firstname" class="form-control" required v-model="inputSignup.firstname"/>
               </div>
               <div class="form-group">
                 <label for="jobtitle">Fonction :</label>
-                <input type="text" id="jobtitle" name="jobtitle" class="form-control" required v-model="inputDatas.jobtitle"/>
+                <input type="text" id="jobtitle" name="jobtitle" class="form-control" required v-model="inputSignup.jobtitle"/>
               </div> 
               <div class="form-group">
                 <label for="email">E-mail :</label>
-                <input type="email" id="email" name="email" class="form-control" required v-model="inputDatas.email"/>
+                <input type="email" id="email" name="email" class="form-control" required v-model="inputSignup.email"/>
               </div>
               <div class="form-group">
                 <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="password" class="form-control" required v-model="inputDatas.password"/>
+                <input type="password" id="password" name="password" class="form-control" required v-model="inputSignup.password"/>
               </div>                                        
             </form> 
              <button></button> 
@@ -31,13 +31,13 @@
 
 
 <script>
-import NavDisconnected from "./components/NavDisconnected.vue"
+import NavDisconnected from '../components/NavDisconnected.vue'
 export default {
     name: 'Signup',
-    components: { NavDisconnected },
+    components: { NavDisconnected },   
    data () {
         return {
-            inputDatas: {
+            inputSignup: {
                 lastname: "",
                 firstname: "",
                 jobtitle: "",
@@ -96,6 +96,7 @@ input:focus {
   display: flex;
   justify-content: flex-start;
   padding-bottom: 15px;
+ 
 }
 .blocsignup {
   color: white;
