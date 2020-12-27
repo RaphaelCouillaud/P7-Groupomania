@@ -1,5 +1,5 @@
 //const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
-const Answer = require('../models/answer');
+const { Answer } = require('../models/index');
 
 //router.post('/', auth, multer, answerControl.createAnswer);//
 //router.get('/', auth, answerControl.getAllAnswers);//
@@ -10,7 +10,7 @@ exports.createAnswer = (req, res, next) => {
     const answerContent = req.body.content; // Extraction de l'objet JSON //
     const userId = req.body.userId;
     const messageId = req.body.messageId;
-    Answer.save({
+    Answer.create({
         UserId: userId,
         MessageId: messageId,
         answerContent: content

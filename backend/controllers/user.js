@@ -3,12 +3,6 @@ const jwt = require('jsonwebtoken'); // Sécurisation de la connection grâce à
 //const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
 const { User } = require('../models/index'); // Importation du modèle User //
 
-//router.post('/signup', userControl.signup);
-//router.post('/login', userControl.login);
-//router.delete('/account/:id', auth, userControl.deleteAccount);
-//router.get('/account/:id', auth, userControl.getOneAccount);
-//router.put('/account/:id', auth, userControl.modifyAccount);
-
 // Voir regex - front ou back ?//
 
 // Exportation des fonctions //
@@ -80,11 +74,11 @@ exports.deleteAccount = (req, res, next) => {
             //const filename = sauce.imageUrl.split('/images/')[1]; // Qd on le trouve, on extrait le nom du fichier //
             //fs.unlink(`images/${filename}`, () => { // On le supprime avec fs.unlink //
                 if(req.userId == req.params.id) { // Une fois la suppression, on l'indique à la base de données //
-                    user.destroy() // Méthode //
+                    User.destroy() // Méthode //
                     .then(() => res.status(200).json({ message: 'Compte supprimé' }))
                     .catch(error => res.status(400).json({ error }));
                 } else {
-                    res.status(400).json({ error })
+                    res.status(400).json({ message: 'error' })
                 }
             });
         };
