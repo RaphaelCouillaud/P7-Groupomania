@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <header>
+        <img src="./assets/logo.png" id="logoconnect" alt="Logo Groupomania Connect" />
+    </header>
     
 <router-view></router-view>
 
@@ -16,11 +19,11 @@
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
- 
 }
 #app {
   background-image: url("./assets/groupback.jpg");
@@ -28,12 +31,11 @@ body, html {
   background-repeat: no-repeat;
   height: 100%;
   background-size: cover;
-  display: flex;
-  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
 }
 footer {
-position:fixed;
- bottom: 0;
+  bottom: 0;
+  position: fixed;
  background-image: url("assets/foot.jpg");
  background-size: cover;
  width: 100%;
@@ -44,6 +46,7 @@ position:fixed;
  color: white;
  border-top: 8px solid #d44c5c;
  font-size: 1.25em;
+ 
 }
 footer a{
 text-decoration: none;
@@ -56,6 +59,28 @@ footer img {
 }
 footer p {
   display: flex;
-
+}
+header {
+ background-image: url("assets/head.jpg");
+ background-size: cover;
+ width: 100%;
+ height: 100px;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-around;
+ color: white;
+ border-bottom: 8px solid #d44c5c;
+ font-size: 1.25em;
+ display: flex;
+ flex-direction: row;
+}
+header a{
+text-decoration: none;
+color: white;
+margin: auto;
+}
+header img {
+  width: 22%;
+  margin: auto;
 }
 </style>
