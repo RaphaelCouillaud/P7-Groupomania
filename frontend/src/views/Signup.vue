@@ -65,7 +65,6 @@ export default {
             fetch(url, options)
                     .then(res => res.json())
                     .then((res) => {
-                        //vérifier la création de l'ID et du token et les stocker dans le localStorage
                         if(res.userId && res.token){
                             localStorage.setItem("userId", res.userId);
                             localStorage.setItem("token", res.token);

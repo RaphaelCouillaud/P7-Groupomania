@@ -19,8 +19,8 @@
               </div>                                         
             </form>             
              <p v-if="modify.length >= 1">{{ modify }}</p>
-             <button @click="updateAccount">Actualiser votre compte</button> 
-             <button @click="deleteAccount">Supprimer votre compte</button> 
+             <button @click="updateAccount">Actualisez votre compte</button> 
+             <button @click="deleteAccount">Supprimez votre compte</button> 
              
           </div>  
 </template>
@@ -76,9 +76,7 @@ export default {
             fetch(url, options)
                 .then(res => res.json())
                 .then(data => {
-                    //récupérer le profil mis à jour
                     this.userAccount = data[0];
-                    //réinitialiser les champs de formulaire
                     this.inputAccount = {}
                 })
                 .catch(error => console.log(error))

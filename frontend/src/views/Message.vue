@@ -16,7 +16,7 @@
             </form> 
              <p v-if="modifyMessage.length >= 1">{{ modifyMessage }}</p>
              <button type="submit">Envoyer</button> 
-             <button @click="deleteAccount">Supprimer votre compte</button> 
+             
           </div> 
 </template>
 
