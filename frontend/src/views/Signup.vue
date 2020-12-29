@@ -23,10 +23,11 @@
               <div class="form-group">
                 <label for="password">Mot de passe :</label>
                 <input type="password" id="password" name="password" class="form-control" required v-model="inputSignup.password"/>
-              </div>                                        
+              </div>  
+              <button>Connect</button>                                       
             </form> 
-             <button>Connect</button> 
-              <nav class="navlogsign"><p>Vous avez déjà un compte ? <router-link to="/login">Connectez-vous</router-link></p></nav> 
+             
+              <nav class="navlogsign"><p>Vous avez déjà un compte ? <router-link to="/">Connectez-vous</router-link></p></nav> 
           </div> 
 </template>
 
@@ -54,33 +55,35 @@ export default {
                     "firstname": this.inputSignup.firstname,
                     "jobtitle": this.inputSignup.jobtitle,
                     "email": this.inputSignup.email,
-                    " password": this.inputSignup.password
+                    "password": this.inputSignup.password
                 }
+                console.log(inputDatas)
             let url = "http://localhost:3000/api/auth/signup"
             let options = {
                     method: "POST",
                     body: JSON.stringify(inputDatas),
                     headers: {'Content-Type': 'application/json'}
                 }
+                console.log(options)
             fetch(url, options)
                     .then(res => res.json())
                     .then((res) => {
-                        if(res.userId && res.token){
+                        if (res.userId && res.token){
                             localStorage.setItem("userId", res.userId);
                             localStorage.setItem("token", res.token);
-                            this.$router.push("login");
+                             console.log(localStorage)
+                            this.$router.push("messages");
+                            
                         }                        
                     })
-                .catch(error => {
-                    this.errorMessage = error
-                })
-            }
-                
-    },
-    mounted() {
+                .catch(error => console.log(error))
+                    }   
+              },
+     
+   mounted() {
         localStorage.clear();
     }
-}
+}    
 </script>
 
 <style lang="css">
@@ -132,7 +135,7 @@ input:focus {
   color: white;
   margin: auto;
   width: 60%; 
-  background-color: #0c2444;
+  
 	opacity: 0.9;
 	padding-top: 50px;
 	box-shadow: inset 0px 0px 0px 10px white;
@@ -141,6 +144,7 @@ input:focus {
   text-align: center;
   margin-top: 50px;
   margin-bottom: 50px;
+  background-color:#0c2444;
 }
 .blocsignup p {
 	color: white;

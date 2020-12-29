@@ -1,7 +1,8 @@
 <template>
      
           <div class="blocsignup">
-          
+          <Navbar></Navbar>
+          <Giffinder></Giffinder>
             <h2>Exprimez-vous !</h2>
             <form v-on:submit.prevent="sendMessage" id="form-signup" >
               <div class="form-group">
@@ -21,9 +22,14 @@
 </template>
 
 <script>
-
+import Navbar from '../components/Navbar'
+import Giffinder from '../components/Giffinder'
 export default {
     name: 'Message',
+    components: {
+        Navbar,
+        Giffinder
+    },
     
     data: () => {
         return {

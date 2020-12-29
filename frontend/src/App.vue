@@ -26,12 +26,12 @@ body, html {
   height: 100%;
 }
 #app {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
   background-image: url("./assets/groupback.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  height: 100%;
   background-size: cover;
-  font-family: 'Montserrat', sans-serif;
 }
 footer {
   bottom: 0;

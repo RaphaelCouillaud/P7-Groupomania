@@ -1,7 +1,7 @@
 <template>
      
-          <div class="blocsignup">
-           
+               <div class="blocsignup">
+            <Navbar></Navbar>
             <h2>Gestion du compte de {{ userAccount.firstname }} {{ userAccount.lastName }}</h2>
             <form id="form-login" >
               
@@ -26,8 +26,12 @@
 </template>
 
 <script>
+import Navbar from '../components/Navbar'
 export default {
     name: 'Account',
+    components: {
+        Navbar
+    },
       
    data () {
         return {
@@ -100,3 +104,8 @@ export default {
     }
 }
 </script>
+
+<style lang="css">
+
+
+</style>

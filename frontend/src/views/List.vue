@@ -1,31 +1,34 @@
 <template>
      
           <div class="blocsignup">
-           
-            <h2>Connectez-vous et profitez des derniers messages !</h2>
-            <form v-on:submit.prevent="login" id="form-login" >
-              
+              <Navbar></Navbar>          
+            <h2>Derniers messages</h2>
+            <form v-on:submit.prevent="sendMessage" id="form-signup" >
               <div class="form-group">
-                <label for="email">E-mail :</label>
-                <input type="email" id="email" name="email" class="form-control" required v-model="inputLogin.email"/>
+                <label for="title">Titre du message :</label>
+                <input type="text" id="title" name="title" class="form-control" required v-model="inputMessage.title"/>
               </div>
               <div class="form-group">
-                <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="password" class="form-control" required v-model="inputLogin.password"/>
-              </div>   
-              <button>Connect</button>                                     
+                <label for="image">Lien :</label>
+                <input type="url" id="image" name="image" class="form-control" required v-model="inputMessage.image"/>
+              </div>
+                                     
             </form> 
-              
-             <nav class="navlogsign"><p>Pas encore inscrit ? <router-link to="/signup">Connectez-vous</router-link></p></nav>
-          </div>  
+             
+             <button type="submit">Envoyer</button> 
+             
+          </div> 
 </template>
 
 
 <script>
-
+import Navbar from '../components/Navbar'
 export default {
-    name: 'Login',
-      
+    name: 'List',
+     components: {
+        Navbar
+    },
+
    data () {
         return {
             inputLogin: {
@@ -40,8 +43,7 @@ export default {
                     "email": this.inputLogin.email,
                     "password": this.inputLogin.password
                 }
-                console.log(loginDatas)
-                let url = "http://localhost:3000/api/auth/"
+                let url = "http://localhost:3000/api/auth/login"
                 let options = {
                     method: "POST",
                     body: JSON.stringify(loginDatas),
