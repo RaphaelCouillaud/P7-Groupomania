@@ -1,6 +1,6 @@
 <template>
         <nav id="giffinder">
-            <p>💡</p>
+            <i class="far fa-lightbulb"></i>
             <a target="_blank" href="https://giphy.com/">GIPHY</a> 
             <a target="_blank" href="https://imgur.com/">imgur</a> 
             <a target="_blank" href="https://www.gifbin.com/">GIFBIN</a> 
@@ -26,6 +26,7 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     position: absolute;
+    position: fixed;
     right: 2%;
     margin: auto;
     box-shadow: inset 0px 0px 0px 4px white;
@@ -42,6 +43,12 @@ export default {
 #giffinder p {
     font-size: 2em;
     margin: 0;
+}
+.fa-lightbulb {
+    color: white;
+    font-size: 1.85em;
+    font-weight: lighter;
+     text-shadow: -1px 0 1px#fcf404, 0 1px 1px#fcf404, 1px 0 1px #fcf404, 0 -1px 10px#fcf404;
 }
 
 </style>

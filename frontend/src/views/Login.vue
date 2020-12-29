@@ -41,7 +41,7 @@ export default {
                     "password": this.inputLogin.password
                 }
                 console.log(loginDatas)
-                let url = "http://localhost:3000/api/auth/"
+                let url = "http://localhost:3000/api/auth/login"
                 let options = {
                     method: "POST",
                     body: JSON.stringify(loginDatas),
@@ -54,7 +54,7 @@ export default {
                             localStorage.setItem("userId", res.userId)
                             localStorage.setItem("token", res.token)
                             console.log(localStorage)
-                            this.$router.push("messages");
+                            this.$router.push("message");
                         }                        
                     })
                     .catch(error => console.log(error))

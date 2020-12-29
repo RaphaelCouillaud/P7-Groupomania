@@ -26,6 +26,7 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     position: absolute;
+    position: fixed;
     left: 2%;
     margin: auto;
     box-shadow: inset 0px 0px 0px 4px white;

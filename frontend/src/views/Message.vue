@@ -15,7 +15,7 @@
               </div>
                                      
             </form> 
-             <p v-if="modifyMessage.length >= 1">{{ modifyMessage }}</p>
+             
              <button type="submit">Envoyer</button> 
              
           </div> 
@@ -36,8 +36,7 @@ export default {
             inputMessage : {
                 title: "",
                 image: ""
-            },
-            modifyMessage : ""
+            }
         }
     },
     methods: {
@@ -56,13 +55,11 @@ export default {
                 .then(res => {
                     if(res.ok) {
                         this.inputMessage = {}
-                    }
-                    this.modifyMessage = res.message;                    
+                    }           
                 })
-            .catch(error => {
-                this.errorMessage = error
-            })
+            .catch(error => console.log(error))
+            }
         }
     }
-}
+
 </script>

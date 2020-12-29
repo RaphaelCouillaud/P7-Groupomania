@@ -2,7 +2,7 @@
      
                <div class="blocsignup">
             <Navbar></Navbar>
-            <h2>Gestion du compte de {{ userAccount.firstname }} {{ userAccount.lastName }}</h2>
+            <h2>Gestion du compte de {{ userAccount.firstname }} {{ userAccount.lastname }}</h2>
             <form id="form-login" >
               
               <div class="form-group">
@@ -18,9 +18,9 @@
                 <input type="text" id="jobtitle" name="jobtitle" class="form-control" required v-model="inputAccount.jobtitle"/>
               </div>                                         
             </form>             
-             <p v-if="modify.length >= 1">{{ modify }}</p>
-             <button @click="updateAccount">Actualisez votre compte</button> 
-             <button @click="deleteAccount">Supprimez votre compte</button> 
+             
+             <button @click="updateAccount" class="accountbutton">Actualisez votre compte</button> 
+             <button @click="deleteAccount" class="accountbutton">Supprimez votre compte</button> 
              
           </div>  
 </template>
@@ -35,11 +35,10 @@ export default {
       
    data () {
         return {
-            modify: "",
             userAccount: {
                 userId: localStorage.getItem("userId"),
-                firstName: "",
-                lastName: "",
+                firstname: "",
+                lastname: "",
                  jobtitle: ""
             },
             inputAccount: {
@@ -55,14 +54,14 @@ export default {
             let options = {
                 method: "GET",
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                }
-            };
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")}
+            }
+            console.log(options)
             fetch(url, options)
                 .then(response => response.json())
                 .then(data => {
-                    this.userAccount.firstname = data[0].firstName;
-                    this.userAccount.lastname = data[0].lastName;
+                    this.userAccount.firstname = data[0].firstname; //premier nom//
+                    this.userAccount.lastname = data[0].lastname;
                     this.userAccount.jobtitle = data[0].jobtitle;
                 })
                 .catch(error => console.log(error))
@@ -78,7 +77,8 @@ export default {
                 body: JSON.stringify(this.inputAccount),
             };
             fetch(url, options)
-                .then(res => res.json())
+                .then(res => res.text())          // convert to plain text
+                .then(text => console.log(text))
                 .then(data => {
                     this.userAccount = data[0];
                     this.inputAccount = {}
@@ -106,6 +106,9 @@ export default {
 </script>
 
 <style lang="css">
-
+.accountbutton {
+    width: auto;
+    margin: 10px 10px 50px 10px;
+}
 
 </style>

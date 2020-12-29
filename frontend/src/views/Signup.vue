@@ -68,13 +68,13 @@ export default {
             fetch(url, options)
                     .then(res => res.json())
                     .then((res) => {
-                        if (res.userId && res.token){
-                            localStorage.setItem("userId", res.userId);
+                        /*if (res.userId && res.token){*/
+                           localStorage.setItem("userId", res.userId);
                             localStorage.setItem("token", res.token);
                              console.log(localStorage)
-                            this.$router.push("messages");
+                            this.$router.push("message");
                             
-                        }                        
+                        /*} */                    
                     })
                 .catch(error => console.log(error))
                     }   
