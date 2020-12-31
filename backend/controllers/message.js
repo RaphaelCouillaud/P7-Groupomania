@@ -11,7 +11,6 @@ const fs = require ('fs'); // Création et gestion des fichiers //
 // Création d'un message //
 exports.createMessage = (req, res, next) => {
     const messageObject = JSON.parse(req.body.message); // Extraction de l'objet JSON //
-    delete messageObject.id; // on retire le champ id du corps de la requête//
     const message = new Message({
         ...messageObject, //...raccourci pour prendre en compte tous les éléments du body de la requête//
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // Protocole, nom d'hôte, images, nom du fichier //        
@@ -20,6 +19,18 @@ exports.createMessage = (req, res, next) => {
         .then(() => res.status(201).json({ message: 'Message enregistré !' }))
         .catch(error => res.status(400).json({ error }));
 };
+
+    //const messageObject = JSON.parse(req.body.message); // Extraction de l'objet JSON //
+   // console.log(req.body.message)
+    //delete messageObject.id; // on retire le champ id du corps de la requête//
+    //const message = new Message({
+   //     ...messageObject, //...raccourci pour prendre en compte tous les éléments du body de la requête//
+    //    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, // Protocole, nom d'hôte, images, nom du fichier //        
+   // });
+   // Message.create()
+   //     .then(() => res.status(201).json({ message: 'Message enregistré !' }))
+    //    .catch(error => res.status(400).json({ error }));
+
 
 // Suppression d'un message //
 exports.deleteMessage = (req, res, next) => {
@@ -44,7 +55,10 @@ exports.getOneMessage = (req, res, next) => {
 
 // Obtention des messages //
 exports.getAllMessages = (req, res, next) => {     
-    Message.findAll()
+    Message.findAll({
+        include: ["user", "answers"]
+    }
+    )
         .then((messages) => res.status(200).json(messages))
         .catch(error => res.status(400).json({ error }));
 };

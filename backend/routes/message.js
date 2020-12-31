@@ -8,7 +8,7 @@ const multer = require('../middleware/multer-config');
 
 
 // On rajoute les middlewares auth et multer sur les routes qu'on veut protéger //
-router.post('/', auth, multer, messageControl.createMessage);
+router.post('/new', auth, multer, messageControl.createMessage);
 router.delete('/:id', auth, messageControl.deleteMessage);
 router.get('/:id', auth, messageControl.getOneMessage);
 router.get('/', auth, messageControl.getAllMessages);

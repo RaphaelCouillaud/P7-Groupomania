@@ -14,6 +14,7 @@ Message.associate = function (models) {
   //Associations can be define here//
   Message.belongsTo(models.User, {
     foreignKey: 'userId',
+    as: 'user',
     onDelete: 'CASCADE', // Si on supprime un user, on supprime ses messages //
   });
   Message.hasMany(models.Answer, {

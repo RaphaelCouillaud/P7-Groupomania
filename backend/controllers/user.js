@@ -69,20 +69,15 @@ exports.login = (req, res, next) => {
     
 // Suppression d'un compte //
 exports.deleteAccount = (req, res, next) => {
-    User.findOne({ where: { id: req.params.id }}) // On trouve l'objet dans la base de données //
-        .then((user) => {
-            //const filename = sauce.imageUrl.split('/images/')[1]; // Qd on le trouve, on extrait le nom du fichier //
-            //fs.unlink(`images/${filename}`, () => { // On le supprime avec fs.unlink //
-                if(req.userId == req.params.id) { // Une fois la suppression, on l'indique à la base de données //
-                    User.destroy() // Méthode //
+    User.findOne({ where: { id: req.params.id }})  // On trouve l'objet dans la base de données //
+      .then((user) => {
+          User.destroy({ where: { id: req.params.id }}) // Méthode //
                     .then(() => res.status(200).json({ message: 'Compte supprimé' }))
                     .catch(error => res.status(400).json({ error }));
-                } else {
-                    res.status(400).json({ message: 'error' })
-                }
-            });
-        };
-
+                })
+            .catch (error => res.status(500).json({ error }));
+            };
+        
 // Obtention d'un compte //
 exports.getOneAccount = (req, res, next) => {
     User.findOne({ where : { id: req.params.id }})
@@ -107,4 +102,11 @@ exports.modifyAccount = (req, res, next) => { // Modification d'une sauce //
             res.status(400).json({ error })
         }
         })
+};
+
+exports.getAllAccounts = (req, res, next) => {
+    User.findAll()
+        .then((users) => res.status(200).json(users))
+        console.log(users)
+        .catch(error => res.status(400).json({ error }));
 };
