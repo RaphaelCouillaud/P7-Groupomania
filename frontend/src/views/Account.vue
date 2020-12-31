@@ -97,10 +97,7 @@ export default {
                 .then(res => res.json())
                 .then(this.$router.push("/signup"))
                 .catch(error => console.log(error))
-        },
-    },
-    mounted() {
-        localStorage.clear();
+        }
     }
 }
 </script>

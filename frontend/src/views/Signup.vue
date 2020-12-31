@@ -72,17 +72,15 @@ export default {
                            localStorage.setItem("userId", res.userId);
                             localStorage.setItem("token", res.token);
                              console.log(localStorage)
-                            this.$router.push("message");
+                            this.$router.push("/");
                             
                         /*} */                    
                     })
                 .catch(error => console.log(error))
                     }   
-              },
+              }
      
-   mounted() {
-        localStorage.clear();
-    }
+   
 }    
 </script>
 
