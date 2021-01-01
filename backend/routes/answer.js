@@ -11,6 +11,7 @@ const auth = require('../middleware/auth');
 // On rajoute les middlewares auth et multer sur les routes qu'on veut protéger //
 router.post('/', auth, answerControl.createAnswer);
 router.get('/', auth, answerControl.getAllAnswers);
+router.get('/:id', auth, answerControl.getOneAnswer);
 router.delete('/:id', auth, answerControl.deleteAnswer);
 
 

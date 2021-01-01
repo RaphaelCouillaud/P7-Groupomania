@@ -4,15 +4,15 @@ const router = express.Router();
 
 const messageControl = require('../controllers/message');
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
+//const multer = require('../middleware/multer-config');//
 
 
 // On rajoute les middlewares auth et multer sur les routes qu'on veut protéger //
-router.post('/new', auth, multer, messageControl.createMessage);
+router.post('/new', auth, messageControl.createMessage);
 router.delete('/:id', auth, messageControl.deleteMessage);
 router.get('/:id', auth, messageControl.getOneMessage);
 router.get('/', auth, messageControl.getAllMessages);
-router.put('/:id', auth, multer, messageControl.modifyMessage);
+router.put('/:id', auth, messageControl.modifyMessage);
 
 
 

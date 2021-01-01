@@ -17,10 +17,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
-      image: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
+     // image: {//
+     //   allowNull: true,//
+     //   type: Sequelize.STRING//
+     // },//
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,

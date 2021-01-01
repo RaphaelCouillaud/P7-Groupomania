@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   var Message = sequelize.define('Message', {
     title: DataTypes.STRING,
     content: DataTypes.TEXT,
-    image: DataTypes.STRING,
-    date: DataTypes.DATE,
+    //image: DataTypes.STRING,//
+    //date: DataTypes.DATE,//
     userId: DataTypes.INTEGER
   });
 
