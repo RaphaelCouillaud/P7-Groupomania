@@ -10,8 +10,8 @@
                 <input type="text" id="title" name="title" class="form-control" required v-model="inputMessage.title"/>
               </div>
               <div class="form-group">
-                <label for="image">Lien :</label>
-                <input type="url" id="image" name="image" class="form-control" required v-model="inputMessage.image"/>
+                <label for="content">Contenu :</label>
+                <textarea type="text" id="content" name="content" rows="10" class="form-control" required v-model="inputMessage.content"></textarea>
               </div>
                                      
             </form> 
@@ -35,7 +35,7 @@ export default {
         return {
             inputMessage : {
                 title: "",
-                image: ""
+                content: ""
             }
         }
     },

@@ -3,8 +3,8 @@
                <div class="blocsignup">
             <Navbar></Navbar>
             <h2>Gestion du compte de {{ userAccount.firstname }} {{ userAccount.lastname }}</h2>
-            <form id="form-login" >
-              
+            <p>Vous êtes inscrit depuis le <!--{{ userAccount.date }}--> en tant que {{ userAccount.jobtitle }}.</p>
+           <!--<form id="form-login" >
               <div class="form-group">
                 <label for="lastname">Modifiez votre nom :</label>
                 <input type="text" id="lastname" name="lastname" class="form-control" v-model="inputAccount.lastname"/>
@@ -17,10 +17,10 @@
                 <label for="jobtitle">Modifiez votre fonction :</label>
                 <input type="text" id="jobtitle" name="jobtitle" class="form-control" required v-model="inputAccount.jobtitle"/>
               </div>                                         
-            </form>             
+            </form>           
              
-             <button @click="updateAccount" class="accountbutton">Actualisez votre compte</button> 
-             <button @click="deleteAccount" class="accountbutton">Supprimez votre compte</button> 
+             <button @click="updateAccount" class="accountbutton">Actualisez votre compte</button> -->
+             <button @click="deleteAccount" class="accountbutton">Supprimez votre compte</button>  
              
           </div>  
 </template>
@@ -32,20 +32,20 @@ export default {
     components: {
         Navbar
     },
-      
    data () {
         return {
-            userAccount: {
+            userAccount : {
                 userId: localStorage.getItem("userId"),
-                firstname: "",
-                lastname: "",
-                 jobtitle: ""
+                firstname : "" ,
+                lastname : "" ,
+               // date:"",//
+                jobtitle : ""
             },
-            inputAccount: {
-                lastname: "",
-                firstname: "",
-                jobtitle: ""
-            }
+           // inputAccount: {
+            //    lastname: "",
+            //    firstname: "",
+           //     jobtitle: ""
+           // }
         }
     },
     methods: {
@@ -54,51 +54,55 @@ export default {
             let options = {
                 method: "GET",
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("token")}
-            }
-            console.log(options)
+                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                    }
+            };
             fetch(url, options)
                 .then(response => response.json())
                 .then(data => {
-                    this.userAccount.firstname = data[0].firstname; //premier nom//
+                    this.userAccount.firstname = data[0].firstname;
                     this.userAccount.lastname = data[0].lastname;
                     this.userAccount.jobtitle = data[0].jobtitle;
                 })
+                
                 .catch(error => console.log(error))
         },
-        updateAccount() {
-            let url = `http://localhost:3000/api/auth/${ this.userAccount.userId }`;
-            let options = {
-                method: "PUT",
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.inputAccount),
-            };
-            fetch(url, options)
-                .then(res => res.text())          // convert to plain text
-                .then(text => console.log(text))
-                .then(data => {
-                    this.userAccount = data[0];
-                    this.inputAccount = {}
-                })
-                .catch(error => console.log(error))
-        },
+       // updateAccount() {
+        //    let url = `http://localhost:3000/api/auth/${ this.userAccount.userId }`;
+        //    let options = {
+        //        method: "PUT",
+        //        headers: {
+        //            'Authorization': 'Bearer ' + localStorage.getItem("token"),
+        //            'Content-Type': 'application/json'
+        //        },
+        //        body: JSON.stringify(this.inputAccount),
+        //    };
+        //    fetch(url, options)
+        //        .then(res => res.text())          // convert to plain text
+        //        .then(text => console.log(text))
+        //        .then(data => {
+        //            this.userAccount = data[0];
+        //            this.inputAccount = {}
+        //        })
+        //        .catch(error => console.log(error))
+       // },
         deleteProfile() {
-            let url = `http://localhost:3000/api/auth/${ this.userAccount.userId }`;
-            let options = {
+           let url = `http://localhost:3000/api/auth/${ this.userAccount.userId }`;
+           let options = {
                 method: "DELETE",
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                }
+                   'Authorization': 'Bearer ' + localStorage.getItem("token"), 
+                    }
             };
             fetch(url, options)
-                .then(res => res.json())
+                .then((response) => {
+                console.log(response);
+                localStorage.clear();
+            })
                 .then(this.$router.push("/signup"))
-                .catch(error => console.log(error))
-        }
-    }
+               .catch(error => console.log(error))
+        },
+    },
 }
 </script>
 
@@ -107,5 +111,6 @@ export default {
     width: auto;
     margin: 10px 10px 50px 10px;
 }
+
 
 </style>

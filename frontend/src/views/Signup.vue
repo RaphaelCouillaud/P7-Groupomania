@@ -108,7 +108,7 @@ label {
   font-size: 1.5em;
   margin: auto;
 }
-input {
+input, textarea {
   width: 50%;
   height: 3em;
   box-sizing: border-box;  
@@ -119,7 +119,7 @@ input {
   padding: 10px;
   margin: auto;
 }
-input:focus {
+input:focus, textarea:focus {
   border-color: white;
   box-shadow: 0px 0px 20px #d44c5c;
 }
@@ -140,9 +140,11 @@ input:focus {
   border: 8px solid #d44c5c;
   border-radius: 30px;
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  background-color:#0c2444;
+  margin-top: 20px;
+  background-image: url("../assets/groupback.jpg");
+  
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .blocsignup p {
 	color: white;

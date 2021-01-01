@@ -1,9 +1,13 @@
 <template>
      
           <div class="blocsignup">
-              <Navbar></Navbar>          
-            <h2>Derniers messages</h2>
+            <Navbar></Navbar>   
+			
+			<h2>Derniers messages</h2>
+		
+            
           </div> 
+          
 </template>
 
 
@@ -12,7 +16,7 @@ import Navbar from '../components/Navbar'
 export default {
     name: 'List',
      components: {
-        Navbar
+		Navbar,
     },
 
 }    
@@ -22,5 +26,8 @@ export default {
 
 <style lang="css">
 
+/*footer {
+	display: none;
+}*/
 
 </style>

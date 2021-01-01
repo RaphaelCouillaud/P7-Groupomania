@@ -1,16 +1,18 @@
 <template>
   <div id="app">
+    
     <header>
         <img src="./assets/logo.png" id="logoconnect" alt="Logo Groupomania Connect" />
     </header>
-    
-<router-view></router-view>
+    <router-view></router-view>
+
 
     <footer>
        <p><a href="politique">Politique de confidentialité</a></p>
       <p><img src="./assets/iconwhite.png"  alt="Logo Groupomania" /></p>
       <p><a href="mentions">Mentions légales</a></p>
     </footer>
+    
 </div>
   
 </template>
@@ -28,14 +30,13 @@ body, html {
 #app {
   height: 100%;
   font-family: 'Montserrat', sans-serif;
-  background-image: url("./assets/groupback.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #d4d4d4;
+  font-size: 0.8em;
+    
 }
 footer {
-  bottom: 0;
-  position: fixed;
+bottom: 0;
+position: absolute;
  background-image: url("assets/foot.jpg");
  background-size: cover;
  width: 100%;
@@ -46,6 +47,7 @@ footer {
  color: white;
  border-top: 8px solid #d44c5c;
  font-size: 1.25em;
+ 
  
 }
 footer a{
@@ -73,6 +75,7 @@ header {
  font-size: 1.25em;
  display: flex;
  flex-direction: row;
+ 
 }
 header a{
 text-decoration: none;
