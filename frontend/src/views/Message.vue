@@ -1,8 +1,9 @@
 <template>
-     
-          <div class="blocsignup">
-          <Navbar></Navbar>
+     <section>
+         <Navbar></Navbar>
           <Giffinder></Giffinder>
+          <div class="blocsignup">
+          
             <h2>Exprimez-vous !</h2>
             <form v-on:submit.prevent="sendMessage" id="form-signup" >
               <div class="form-group">
@@ -19,6 +20,7 @@
              <button type="submit">Envoyer</button> 
              
           </div> 
+     </section> 
 </template>
 
 <script>
@@ -63,3 +65,21 @@ export default {
     }
 
 </script>
+
+<style lang="css">
+section {
+    display: flex;
+    margin: auto;
+}
+textarea {
+    height: auto;
+    resize:none;
+}
+@media screen and (max-width: 768px) {
+	section {
+    flex-direction: column;
+    margin-top: 25px;
+}
+}
+
+</style>

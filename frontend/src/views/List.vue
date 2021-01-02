@@ -1,13 +1,42 @@
 <template>
-     
+     <section>
+        <Navbar></Navbar>  
           <div class="blocsignup">
-            <Navbar></Navbar>   
+            
 			
 			<h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+       <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+       <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
+      <h2>Derniers messages</h2>
 		
             
           </div> 
-          
+     </section> 
 </template>
 
 
@@ -26,8 +55,6 @@ export default {
 
 <style lang="css">
 
-/*footer {
-	display: none;
-}*/
+
 
 </style>

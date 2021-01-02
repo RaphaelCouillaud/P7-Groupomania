@@ -97,7 +97,7 @@ button {
   border-radius: 30px;
   padding: 10px;
   font-family: 'Press Start 2P', cursive;  
- margin: 15px 0 0 0;
+ margin: 15px 0px 25px 0px;
  background-color: white;
  color: #0c2444;
 }
@@ -133,8 +133,7 @@ input:focus, textarea:focus {
   color: white;
   margin: auto;
   width: 60%; 
-  
-	opacity: 0.9;
+	opacity: 0.95;
 	padding-top: 50px;
 	box-shadow: inset 0px 0px 0px 10px white;
   border: 8px solid #d44c5c;
@@ -142,12 +141,13 @@ input:focus, textarea:focus {
   text-align: center;
   margin-top: 20px;
   background-image: url("../assets/groupback.jpg");
-  
   background-repeat: no-repeat;
   background-size: cover;
+  
 }
-.blocsignup p {
+.blocsignup p, .blocsignup h2 {
 	color: white;
+  padding: 0 15px 0 15px;
 }
 .navlogsign {
   height: 50px;
@@ -160,5 +160,28 @@ input:focus, textarea:focus {
 }
 .navlogsign a:hover, .navlogsign a:focus {
   color: #d44c5c;
+}
+
+@media screen and (max-width: 768px) {
+	.blocsignup {
+    width: 80%; 
+}
+}
+@media screen and (max-width: 450px) {
+	.blocsignup {
+  width: 90%; 
+  box-shadow: inset 0px 0px 0px 8px white;
+  border: 5px solid #d44c5c;
+  font-size: 0.7em;
+}
+ .form-group {
+   display: flex;
+   flex-direction: column;
+   
+ }
+label, input, textarea {
+  width: 75%;
+  text-align: center;
+}
 }
 </style>
