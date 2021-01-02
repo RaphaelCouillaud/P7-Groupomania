@@ -9,7 +9,7 @@ const { User } = require('../models/index'); // Importation du modèle User //
 // Fonction signup, sauvegarde d'un nouvel utilisateur //
 exports.signup = (req, res, next) => {
     //res.status(201).json(req.body)//
-    if (req.body.email == null || req.body.password == null || req.body.lastname == null) {
+    if (req.body.email == null || req.body.password == null || req.body.lastname == null || req.body.firstname == null) {
         return res.status(400).json({ 'error': 'Paramètres manquants' });
     } //Vérification de la présence des paramètres dans la requête//
     User.findOne({
@@ -80,13 +80,13 @@ exports.deleteAccount = (req, res, next) => {
         
 // Obtention d'un compte //
 exports.getOneAccount = (req, res, next) => {
-    User.findOne({ where : { id: req.params.id }})
+    User.findOne({ where: { id: req.params.id }})
         .then((user) => res.status(200).json(user))
         .catch(error => res.status(404).json({ error }));
 };
 
 // Modification d'un compte //
-exports.modifyAccount = (req, res, next) => { // Modification d'une sauce //
+exports.modifyAccount = (req, res, next) => { 
     User.findOne({ id: req.params.id })
         .then((user) => {
             if (req.userId == req.params.id) { 

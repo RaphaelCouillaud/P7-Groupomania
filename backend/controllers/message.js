@@ -10,11 +10,10 @@ const { Message } = require('../models/index');
 
 // Création d'un message //
 exports.createMessage = (req, res, next) => {
-    Message.create({
-       // userId: req.body.userId,
-        //createdAt: Date.now(),
-        message: req.body.message
-    })
+   const message = new Message({
+    ...req.body
+   });   
+    Message.create()
         .then(() => res.status(201).json({ message: "Message envoyé!" }))
         .catch(error => res.status(400).json({ error }));
 };
