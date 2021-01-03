@@ -17,7 +17,7 @@
                                      
             </form> 
              
-             <button type="submit">Envoyer</button> 
+             <button>Envoyer</button> 
              
           </div> 
      </section> 
@@ -33,20 +33,33 @@ export default {
         Giffinder
     },
     
-    data: () => {
+    data () {
         return {
             inputMessage : {
                 title: "",
-                content: ""
-            }
+                content: "",
+            },
+            userId: ""
         }
     },
+    
+    mounted() {
+        this.userId = JSON.parse(localStorage.getItem("userId")); 
+        console.log(this.userId)       
+    },
+    
     methods: {
         sendMessage() {
-            let url = "http://localhost:3000/api/messages"
+            let deliverMessage = {
+                    "title": this.inputMessage.title,
+                    "content": this.inputMessage.content,
+                    "userId": this.userId
+                }
+                console.log(deliverMessage)
+            let url = "http://localhost:3000/api/messages/new"
             let options = {
                 method: "POST",
-                body: JSON.stringify(this.inputMessage),
+                body: JSON.stringify(deliverMessage),
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem("token"),
                     'Content-Type': 'application/json'
@@ -54,15 +67,17 @@ export default {
             }
             fetch(url, options)
                 .then(res => res.json())
-                .then(res => {
+               .then((res) => {
+                    console.log(res)
                     if(res.ok) {
-                        this.inputMessage = {}
+                        this.inputMessage = {} // Retour à 0 des inputs //
                     }           
                 })
+                .then(this.$router.push("/list"))
             .catch(error => console.log(error))
             }
         }
-    }
+}
 
 </script>
 

@@ -1,6 +1,6 @@
 <template>
         <nav id="navbar">
-            <router-link to="/message"><i class="far fa-edit"></i></router-link> 
+            <router-link to="/message"><i class="fas fa-pencil-alt"></i></router-link> 
              <router-link to="/list"><i class="far fa-comments"></i></router-link>
             <router-link to="/account"><i class="far fa-address-card"></i></router-link>
             <i @click="deconnect" class="fas fa-door-open"></i>
@@ -42,6 +42,7 @@ export default {
 #navbar i {
     font-size: 2.5em;
     color: white;
+    padding: 0 5px 0 5px;
 }
 @media screen and (max-width: 768px) {
 	#navbar {

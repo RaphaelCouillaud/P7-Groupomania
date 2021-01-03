@@ -7,6 +7,7 @@ import Message from '../views/Message.vue'
 import List from '../views/List.vue'
 
 Vue.use(VueRouter)
+Vue.use(require('vue-moment'));
 
 const routes = [
   {

@@ -13,7 +13,7 @@
                 <label for="password">Mot de passe :</label>
                 <input type="password" id="password" name="password" class="form-control" required v-model="inputLogin.password"/>
               </div>   
-              <button>Connect</button>                                     
+              <button type="submit">Connect</button>                                     
             </form> 
               
              <nav class="navlogsign"><p>Pas encore inscrit ? <router-link to="/signup">Connectez-vous</router-link></p></nav>
