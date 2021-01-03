@@ -8,18 +8,13 @@ const { Answer } = require('../models/index');
 
 // Création d'une réponse //
 exports.createAnswer = (req, res, next) => {
-    const answerContent = req.body.content; // Extraction de l'objet JSON //
-    console.log(req.body.content)
-    const userId = req.body.userId;
-    console.log(userId)
-    const messageId = req.body.messageId;
-    console.log(messageId)
-    Answer.create({
-        UserId: userId,
-        MessageId: messageId,
-        answerContent: content
-    })
-        .then((newAnswer) => res.status(201).json({ message: 'Réponse enregistrée !' }))
+    const answer = {
+        userId: req.body.userId,
+        messageId: req.body.messageId,
+        content: req.body.content
+    };
+    Answer.create(answer)
+        .then(() => res.status(201).json({ message: "Réponse envoyée !" }))
         .catch(error => res.status(400).json({ error }));
 };
 
