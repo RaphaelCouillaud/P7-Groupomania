@@ -5,14 +5,15 @@ const { User } = require('../models/index'); // Importation du modèle User //
 
 // Voir regex - front ou back ?//
 
+
 // Exportation des fonctions //
 // Fonction signup, sauvegarde d'un nouvel utilisateur //
 exports.signup = (req, res, next) => {
     //res.status(201).json(req.body)//
     if (req.body.email == null || req.body.password == null || req.body.lastname == null || req.body.firstname == null) {
-        return res.status(400).json({ 'error': 'Paramètres manquants' });
+        return res.status(400).json({ 'error': 'Données incomplètes' });
     } //Vérification de la présence des paramètres dans la requête//
-    User.findOne({
+        User.findOne({
         attributes: ['email'],
         where: { email: req.body.email }
     }) //Vérification si un utilisateur corresponde déjà à l'email de la DB//
@@ -26,7 +27,8 @@ exports.signup = (req, res, next) => {
                 password : hash,
                 lastname : req.body.lastname,
                 firstname : req.body.firstname,
-                jobtitle : req.body.jobtitle
+                jobtitle : req.body.jobtitle,
+                isAdmin: req.body.isAdmin // Rajout Admin à renseigner en DB//
             })
                 .then((user) => {
                     console.log(user) 
@@ -57,7 +59,8 @@ exports.login = (req, res, next) => {
                             { userId: user.id }, // 1er argument : données à encoder //
                             'RANDOM_TOKEN_SECRET', // 2ème : clé secréte encodage //
                             { expiresIn: '24h' }// 3 :argument de configuration //
-                        )
+                        ),
+                        isAdmin: user.isAdmin // Rajout Admin //
                     });
                 })
                 .catch(error => res.status(500).json({ error }));
@@ -87,10 +90,10 @@ exports.getOneAccount = (req, res, next) => {
 
 // Modification d'un compte //
 exports.modifyAccount = (req, res, next) => { 
-    User.findOne({ id: req.params.id })
+    User.findOne({ where: { id: req.params.id }})
         .then((user) => {
-            if (req.userId == req.params.id) { 
-            email = req.body.email; // Avec l'adresse mail passé //
+            //if (req.userId == req.params.id) { 
+           // email = req.body.email; // Avec l'adresse mail passé //
             //password : hash; On ne peut pas modifier le mot de passe ?//
             lastname = req.body.lastname;
             firstname = req.body.firstname;
@@ -98,10 +101,8 @@ exports.modifyAccount = (req, res, next) => {
             User.update()         
         .then(() => res.status(201).json({ message: 'Compte modifié !' }))
         .catch(error => res.status(400).json({ error }));
-        } else {
-            res.status(400).json({ error })
-        }
         })
+        .catch(error => res.status(500).json({ error }));
 };
 
 exports.getAllAccounts = (req, res, next) => {
