@@ -71,7 +71,11 @@ export default {
                     console.log(res)
                     if(res.ok) {
                         this.inputMessage = {} // Retour à 0 des inputs //
-                    }           
+                         alert("Message envoyé 🖅");
+                    }  
+                    else {
+                         alert("Message perdu dans les couloirs de Groupomania ! 😱");
+                    }              
                 })
                 .then(this.$router.push("/list"))
             .catch(error => console.log(error))

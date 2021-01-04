@@ -4,7 +4,7 @@
                <div class="blocsignup">
             <h2>Gestion du compte de {{ userAccount.firstname }} {{ userAccount.lastname }}</h2>
             <p>Vous êtes inscrit depuis le <span>{{ userAccount.createdAt | moment("MM.DD.YY") }}</span> en tant que {{ userAccount.jobtitle }}.</p>
-           <!--<form id="form-login" >
+           <!-- <form id="form-login" >
               <div class="form-group">
                 <label for="lastname">Modifiez votre nom :</label>
                 <input type="text" id="lastname" name="lastname" class="form-control" v-model="inputAccount.lastname"/>
@@ -19,7 +19,7 @@
               </div>                                         
             </form>           
              
-             <button @click="updateAccount" class="accountbutton">Actualisez votre compte</button> -->
+             <button @click="updateAccount" class="accountbutton">Actualisez votre compte</button>-->
              <button @click="deleteAccount" class="accountbutton">Supprimez votre compte</button>  
              
           </div>  
@@ -42,11 +42,11 @@ export default {
                 createdAt : "",
                 jobtitle : ""
             },
-           // inputAccount: {
-            //    lastname: "",
-            //    firstname: "",
-           //     jobtitle: ""
-           // }
+           inputAccount: {
+                lastname: "",
+                firstname: "",
+                jobtitle: ""
+            }
         }
     },
     mounted() {
@@ -89,25 +89,25 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-       // updateAccount() {
-        //    let url = `http://localhost:3000/api/auth/${ this.userAccount.userId }`;
-        //    let options = {
-        //        method: "PUT",
-        //        headers: {
-        //            'Authorization': 'Bearer ' + localStorage.getItem("token"),
-        //            'Content-Type': 'application/json'
-        //        },
-        //        body: JSON.stringify(this.inputAccount),
-        //    };
-        //    fetch(url, options)
-        //        .then(res => res.text())          // convert to plain text
-        //        .then(text => console.log(text))
-        //        .then(data => {
-        //            this.userAccount = data[0];
-        //            this.inputAccount = {}
-        //        })
-        //        .catch(error => console.log(error))
-       // },
+      // updateAccount() {
+      //      let url = `http://localhost:3000/api/auth/${ this.userAccount.userId }`;
+      //     let options = {
+      //         method: "PUT",
+      //         headers: {
+      //             'Authorization': 'Bearer ' + localStorage.getItem("token"),
+      //              'Content-Type': 'application/json'
+       //         },
+      //          body: JSON.stringify(this.inputAccount),
+      //      };
+      //     fetch(url, options)
+      //          .then(res => res.text())          // convert to plain text
+      //      .then(text => console.log(text))
+      //          .then(data => {
+      //              this.userAccount = data[0];
+      //              this.inputAccount = {}
+      //          })
+       //         .catch(error => console.log(error))
+      //  },
         deleteAccount() {
            let url = `http://localhost:3000/api/auth/${ this.userAccount.userId }`;
            let options = {
@@ -120,6 +120,7 @@ export default {
                 .then((response) => {
                 console.log(response);
                 localStorage.clear();
+                alert("Suppression du compte confirmée ! 😢");
             })
                 .then(this.$router.push("/signup"))
                .catch(error => console.log(error))

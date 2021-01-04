@@ -6,19 +6,23 @@
             <form v-on:submit.prevent="signup" id="form-signup" >
               <div class="form-group">
                 <label for="lastname">Nom :</label>
-                <input type="text" id="lastname" name="lastname" class="form-control" required  v-model="inputSignup.lastname"/>
+                <input type="text" id="lastname" name="lastname" class="form-control" required 
+                pattern="^[^&amp;<>@&quot;()'!_$*€£`+=\/;?#]+$" v-model="inputSignup.lastname"/>
               </div>
               <div class="form-group">
                 <label for="firstname">Prénom :</label>
-                <input type="text" id="firstname" name="firstname" class="form-control" required v-model="inputSignup.firstname"/>
+                <input type="text" id="firstname" name="firstname" class="form-control" required 
+                pattern="^[^&amp;<>@&quot;()'!_$*€£`+=\/;?#]+$" v-model="inputSignup.firstname"/>
               </div>
               <div class="form-group">
                 <label for="jobtitle">Fonction :</label>
-                <input type="text" id="jobtitle" name="jobtitle" class="form-control" required v-model="inputSignup.jobtitle"/>
+                <input type="text" id="jobtitle" name="jobtitle" class="form-control" required
+                pattern="^[^&amp;<>@&quot;()'!_$*€£`+=\/;?#]+$" v-model="inputSignup.jobtitle"/>
               </div> 
               <div class="form-group">
                 <label for="email">E-mail :</label>
-                <input type="email" id="email" name="email" class="form-control" required v-model="inputSignup.email"/>
+                <input type="email" id="email" name="email" class="form-control" required 
+                pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}" v-model="inputSignup.email"/>
               </div>
               <div class="form-group">
                 <label for="password">Mot de passe :</label>
@@ -73,6 +77,7 @@ export default {
                             localStorage.setItem("token", res.token);
                              console.log(localStorage)
                             this.$router.push("/");
+                            alert(" 🙋‍♂️ Bienvenue sur Groupomania Connect ! Connectez-vous dès à présent ! 🙋‍♀️");
                             
                         /*} */                    
                     })
@@ -119,6 +124,7 @@ input, textarea {
   padding: 10px;
   margin: auto;
 }
+
 input:focus, textarea:focus {
   border-color: white;
   box-shadow: 0px 0px 20px #d44c5c;

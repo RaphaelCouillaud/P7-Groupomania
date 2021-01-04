@@ -16,7 +16,7 @@
               <button type="submit">Connect</button>                                     
             </form> 
               
-             <nav class="navlogsign"><p>Pas encore inscrit ? <router-link to="/signup">Connectez-vous</router-link></p></nav>
+             <nav class="navlogsign"><p>Pas encore inscrit ? <router-link to="/signup">Rejoignez-nous !</router-link></p></nav>
           </div>  
 </template>
 
@@ -53,8 +53,10 @@ export default {
                         if (res.userId && res.token){
                             localStorage.setItem("userId", res.userId)
                             localStorage.setItem("token", res.token)
+                            localStorage.setItem("isAdmin", res.isAdmin);
                             console.log(localStorage)
                             this.$router.push("message");
+                            
                         }                        
                     })
                     .catch(error => console.log(error))
