@@ -1,23 +1,25 @@
 <template>
-     <article>
+     <section>
         <Navbar></Navbar>
         
           <div class="blocsignup">
-			<h2>Derniers messages</h2>  
+			<h1>"Carpe Diem : Profitez du jour présent mes amis, que votre vie soit extraordinaire."</h1> 
+            <p> - Philibert Groupo (1913-1997), fondateur de la société Groupomania.</p>                
           </div> 
-          <Flow></Flow> 
-     </article> 
+
+          <ListMessages/> 
+     </section> 
 </template>
 
 
 <script>
 import Navbar from '../components/Navbar'
-import Flow from '../components/Flow'
+import ListMessages from '../components/ListMessages'
 export default {
     name: 'List',
     components: {
         Navbar,
-        Flow
+        ListMessages
     },
 }
 
@@ -28,9 +30,8 @@ export default {
 
 
 <style lang="css">
-section {
-     border: 3px solid red;
-    
+.blocsignup h1 {
+   margin-top: 0;
 }
 
 

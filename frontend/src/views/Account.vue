@@ -3,7 +3,7 @@
          <Navbar></Navbar>
                <div class="blocsignup">
             <h2>Gestion du compte de {{ userAccount.firstname }} {{ userAccount.lastname }}</h2>
-            <p>Vous êtes inscrit depuis le <span>{{ userAccount.createdAt | moment("MM.DD.YY") }}</span> en tant que {{ userAccount.jobtitle }}.</p>
+            <p>Vous êtes inscrit depuis le <span>{{ userAccount.createdAt | moment("DD.MM.YY" ) }}</span> en tant que {{ userAccount.jobtitle }}.</p>
            <!-- <form id="form-login" >
               <div class="form-group">
                 <label for="lastname">Modifiez votre nom :</label>

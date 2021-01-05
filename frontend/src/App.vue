@@ -26,7 +26,7 @@ body, html {
 #app {
   height: 100%;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 
 header {
@@ -38,7 +38,7 @@ header {
  flex-direction: row;
  justify-content: space-around;
  color: white;
- border-bottom: 8px solid #d44c5c;
+ border-bottom: 6px solid #d44c5c;
  font-size: 1.25em;
  display: flex;
  flex-direction: row;

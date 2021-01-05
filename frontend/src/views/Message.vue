@@ -2,10 +2,9 @@
      <section>
          <Navbar></Navbar>
           <Giffinder></Giffinder>
-          <div class="blocsignup">
-          
+          <div class="blocsignup">          
             <h2>Exprimez-vous !</h2>
-            <form v-on:submit.prevent="sendMessage" id="form-signup" >
+            <form id="form-signup" >
               <div class="form-group">
                 <label for="title">Titre du message :</label>
                 <input type="text" id="title" name="title" class="form-control" required v-model="inputMessage.title"/>
@@ -14,12 +13,13 @@
                 <label for="content">Contenu :</label>
                 <textarea type="text" id="content" name="content" rows="10" class="form-control" required v-model="inputMessage.content"></textarea>
               </div>
-                                     
-            </form> 
-             
-             <button>Envoyer</button> 
-             
+            </form>              
+             <button v-on:click="sendMessage" >Envoyer</button> 
           </div> 
+            <div class="blocsignup"> 
+                <p class="parametres"><a><i class="fas fa-cog"></i></a> Politique de confidentialité</p>
+                <p class="parametres">Signaler un message : <a><i class="far fa-envelope"></i></a> admin@groupomania.com</p>
+             </div>
      </section> 
 </template>
 
@@ -71,13 +71,12 @@ export default {
                     console.log(res)
                     if(res.ok) {
                         this.inputMessage = {} // Retour à 0 des inputs //
+                    }  else {
                          alert("Message envoyé 🖅");
-                    }  
-                    else {
-                         alert("Message perdu dans les couloirs de Groupomania ! 😱");
-                    }              
+                    }         
                 })
-                .then(this.$router.push("/list"))
+                
+                .then(this.$router.push("/list"))               
             .catch(error => console.log(error))
             }
         }
@@ -89,6 +88,14 @@ export default {
 section {
     display: flex;
     margin: auto;
+    flex-direction: column;
+}
+.parametres {
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+a {
+    cursor: auto;
 }
 textarea {
     height: auto;
