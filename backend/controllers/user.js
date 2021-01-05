@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken'); // Sécurisation de la connection grâce à
 const { User } = require('../models/index'); // Importation du modèle User //
 
 // Voir regex - front ou back ?//
-
+const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}/;
+const regexPassword = /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
 // Exportation des fonctions //
 // Fonction signup, sauvegarde d'un nouvel utilisateur //
@@ -13,6 +14,13 @@ exports.signup = (req, res, next) => {
     if (req.body.email == null || req.body.password == null || req.body.lastname == null || req.body.firstname == null) {
         return res.status(400).json({ 'error': 'Données incomplètes' });
     } //Vérification de la présence des paramètres dans la requête//
+    if (!regexEmail.test(req.body.email)) {
+        return res.status(400).json({ 'error': 'Email non validé' });
+    }
+    if (!regexPassword.test(req.body.password)) {
+        return res.status(400).json({ 'error': 'Mot de passe non validé' });
+    }
+    
         User.findOne({
         attributes: ['email'],
         where: { email: req.body.email }
