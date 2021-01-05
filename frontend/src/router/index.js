@@ -5,6 +5,7 @@ import Signup from '../views/Signup.vue'
 import Account from '../views/Account.vue'
 import Message from '../views/Message.vue'
 import List from '../views/List.vue'
+import Infos from '../views/Infos.vue'
 
 Vue.use(VueRouter)
 Vue.use(require('vue-moment'));
@@ -34,6 +35,11 @@ const routes = [
     path: '/list',
     name: 'List',
     component: List,
+  },
+  {
+    path: '/infos',
+    name: 'Infos',
+    component: Infos,
   }
 ]
 

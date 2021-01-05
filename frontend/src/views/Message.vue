@@ -16,10 +16,7 @@
             </form>              
              <button v-on:click="sendMessage" >Envoyer</button> 
           </div> 
-            <div class="blocsignup"> 
-                <p class="parametres"><a><i class="fas fa-cog"></i></a> Politique de confidentialité</p>
-                <p class="parametres">Signaler un message : <a><i class="far fa-envelope"></i></a> admin@groupomania.com</p>
-             </div>
+            
      </section> 
 </template>
 

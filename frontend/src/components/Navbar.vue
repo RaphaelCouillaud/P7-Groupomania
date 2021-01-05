@@ -1,9 +1,10 @@
 <template>
         <nav id="navbar">
-            <router-link to="/message"><i class="fas fa-pencil-alt"></i></router-link> 
-             <router-link to="/list"><i class="far fa-comments"></i></router-link>
-            <router-link to="/account"><i class="far fa-address-card"></i></router-link>
-            <i @click="deconnect" class="fas fa-door-open"></i>
+            <router-link to="/message" title="Rédiger un message"><i class="fas fa-pencil-alt"></i></router-link> 
+             <router-link to="/list" title="Liste des messages"><i class="fas fa-globe"></i></router-link>
+            <router-link to="/account" title="Votre compte"><i class="far fa-address-card"></i></router-link>
+            <router-link to="/infos" title="Informations"><i class="fas fa-cog"></i></router-link>
+            <i @click="deconnect" class="fas fa-door-open" title="Déconnexion"></i>
         </nav>
 </template>
 
@@ -43,6 +44,8 @@ export default {
     font-size: 2.5em;
     color: white;
     padding: 0 5px 0 5px;
+    margin-left: 5px;
+    
 }
 @media screen and (max-width: 768px) {
 	#navbar {
