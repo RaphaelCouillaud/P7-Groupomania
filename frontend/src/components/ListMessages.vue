@@ -11,34 +11,14 @@
             </div>
             <h4> {{ message.title }} </h4>
             <p> {{ message.content }} </p>
-            <!--<div class="blocactions">
-                <button v-if="userOrAdmin(message)" type="button" @click="deleteMessage(message.id)">
-                <i class="fas fa-backspace"></i>
+            <div class="blocactions">
+                <button type="button" @click="deleteMessage(message.id)">
+                <i class="fas fa-times"></i>
                 </button>
-            </div> -->
-        
+            </div>
+        <!--v-if="userOrAdmin(message)" à rajouter au button--> 
+        <Answers :messageId="message.id" :messageUserId="message.userId" />
       </div>   
-
-  
-       <!-- <div v-for="answer in message.answers" v-bind:key="answer.id">
-          <div class="blocsignup">  
-            <h3><i class="far fa-user-circle"></i> {{ Answer.User.firstname }} {{ Answer.User.lastname }} </h3>
-            <p> {{ Answer.content }} </p> 
-            <button v-if="userOrAdmin(answer)" type="button" @click="deleteAnswer(answer.id)">
-            <i class="fas fa-backspace"></i>
-            </button>         
-          </div>
-        </div>
-
-  
-        <div class="blocanswer">
-          <textarea type="text" id="content" name="content" rows="5" class="form-control" v-model="content" 
-          placeholder="Commentez..."></textarea>
-          <a v-on:click="createAnswer(messageId)"><i class="far fa-paper-plane"></i></a>          
-        </div> -->
-
-
-
   </div>
 
   
@@ -49,8 +29,12 @@
 
 
 <script>
+import Answers from "@/components/Answers.vue";
 export default {
     name: "ListMessages",
+    components: {
+    Answers
+  },
 
 data () {
     return {
@@ -58,13 +42,14 @@ data () {
       lastname: "",
       jobtitle: "",
       userId: "",
-      messages: [],
-      content: ""
+      messages: []
+      
     }
   },
 mounted() {
     this.userId = JSON.parse(localStorage.getItem("userId")); 
     console.log(localStorage);
+     
 
      let url = "http://localhost:3000/api/messages";
               let options = {
@@ -77,13 +62,57 @@ mounted() {
                   .then(response => response.json())
                   .then(data => {
                     console.log(data)
-                   this.messages = data; 
+                   this.messages = data;
+                     console.log(this.messages)
                          
                 })
                 .catch(error => console.log(error))
         },
 
- 
+  methods: {
+       userOrAdmin(message) {
+      return message.userId == localStorage.getItem("userId")  
+      || localStorage.getItem("isAdmin") == 1;
+      },
+
+///////////////////DELETE MESSAGE/////////////////////
+       deleteMessage() {
+           let url = `http://localhost:3000/api/messages/${ this.messageId }`; //PB pour détecter l'id du message sinon OK//
+           let options = {
+                method: "DELETE",
+                headers: {
+                   'Authorization': 'Bearer ' + localStorage.getItem("token"), 
+                    }
+            };
+            fetch(url, options)
+                .then((response) => {
+                console.log(response);
+                alert("Suppression du message confirmé ! 😢");
+                // window.location.reload(); A rajouter si DELETE OK//
+            })
+               .catch(error => console.log(error))
+        },
+    },
+///////////////////GET ANSWERS/////////////////////
+        getAllAnswers() {
+            let url = `http://localhost:3000/api/answers${ this.messageId }`;
+            let options = {
+                  method: "GET",
+                  headers: {
+                          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                          }
+                  };
+            fetch(url, options)
+                      .then(response => response.json())
+                      .then(data => {
+                        console.log(data)
+                      this.answers = data;
+                        console.log(this.answers)
+                            
+                    })
+                    .catch(error => console.log(error))
+            },
+}
              
 
 
@@ -106,12 +135,7 @@ mounted() {
 // Fetch DELETE deleteAnswer
 
 
-userOrAdmin (message) {
-      return message.userId == localStorage.getItem("userId")  
-      || 1 == localStorage.getItem("isAdmin");
-    },
 
-}
 
 </script>
 
@@ -119,5 +143,10 @@ userOrAdmin (message) {
 h4 {
   text-transform: uppercase;
 }
-
+.blocjob {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: center;
+}
 </style>
