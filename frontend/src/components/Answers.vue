@@ -38,7 +38,7 @@
             return {
                 answer: "",
                 answers: [],
-                content: ""
+               
             }
         },
         //Passer des données aux composants enfants avec les props//
@@ -47,14 +47,8 @@
             messageUserId: Number,
         },
         mounted() {
-
-        },
-
-        methods: {
-
             ///////////////////GET ANSWERS/////////////////////
-            getAllAnswers() {
-                let url = `http://localhost:3000/api/answers${ this.messageId }`;
+             let url = "http://localhost:3000/api/answers/" + this.messageId + "/display";
                 let options = {
                     method: "GET",
                     headers: {
@@ -71,6 +65,10 @@
                     })
                     .catch(error => console.log(error))
             },
+        
+
+        methods: {
+               
             ///////////////////CREATE ANSWER///////////////////// 
             createAnswer() {
                 let inputContent = {
@@ -102,8 +100,8 @@
             }
         },
 
-        
-    }
+
+    } 
     </script>
 
 <style lang="css">

@@ -12,7 +12,7 @@
             <h4> {{ message.title }} </h4>
             <p> {{ message.content }} </p>
             <div class="blocactions">
-                <button type="button" @click="deleteMessage(message.id)">
+                <button v-if="userOrAdmin(message)" type="button" @click="deleteMessage(message.id)">
                 <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -42,12 +42,14 @@ data () {
       lastname: "",
       jobtitle: "",
       userId: "",
+      isAdmin: "",
       messages: []
       
     }
   },
 mounted() {
     this.userId = JSON.parse(localStorage.getItem("userId")); 
+    this.isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
     console.log(localStorage);
      
 
@@ -93,46 +95,9 @@ mounted() {
                .catch(error => console.log(error))
         },
     },
-///////////////////GET ANSWERS/////////////////////
-        getAllAnswers() {
-            let url = `http://localhost:3000/api/answers${ this.messageId }`;
-            let options = {
-                  method: "GET",
-                  headers: {
-                          'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                          }
-                  };
-            fetch(url, options)
-                      .then(response => response.json())
-                      .then(data => {
-                        console.log(data)
-                      this.answers = data;
-                        console.log(this.answers)
-                            
-                    })
-                    .catch(error => console.log(error))
-            },
+
 }
              
-
-
-
-    
-  
-
-
-  
-// Fetch GET getAllMessages
-
-
-
-// Fetch DELETE deleteMessage
-
-// Fetch POST createAnswer
-
-// Fetch GET getAllAnswers
-
-// Fetch DELETE deleteAnswer
 
 
 
