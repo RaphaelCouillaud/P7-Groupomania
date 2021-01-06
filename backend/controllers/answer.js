@@ -9,7 +9,7 @@ const { Answer } = require('../models/index');
 // Création d'une réponse //
 exports.createAnswer = (req, res, next) => {
     const answer = {
-        userId: req.body.userId,
+        userId: req.decodedToken.userId,
         messageId: req.body.messageId,
         content: req.body.content
     };

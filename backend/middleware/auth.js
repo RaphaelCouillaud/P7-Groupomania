@@ -9,6 +9,7 @@ module.exports = (req, res, next) => { // On exporte un middleware //
         console.log(decodedToken)
         const userId = decodedToken.userId; // On récupére l'userId //
         console.log(userId)
+        req.decodedToken = decodedToken
         if (req.body.userId && req.body.userId !== userId) { // Si l'userId du corps de la requête est différent de userId //
             throw 'User ID non valable'; // Throw pour renvoyer l'erreur //
         } else {
