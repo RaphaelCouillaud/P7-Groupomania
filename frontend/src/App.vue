@@ -26,7 +26,7 @@ body, html {
 #app {
   height: 100%;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.7em;
+ 
 }
 
 header {

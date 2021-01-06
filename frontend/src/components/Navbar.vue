@@ -22,7 +22,7 @@ export default {
 
 <style lang="css">
 #navbar {
-    height: 50%;
+    height: 75%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

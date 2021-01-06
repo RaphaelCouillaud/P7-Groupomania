@@ -4,14 +4,14 @@
      <div class="blocanswer">
           <textarea type="text" id="content" name="content" rows="2" class="form-control" v-model="content" 
           placeholder="Commentez..."></textarea>
-          <a v-on:click="createAnswer()"><i class="far fa-paper-plane"></i></a>          
+          <a v-on:click="createAnswer()"><i class="far fa-paper-plane" title="Envoyer"></i></a>          
     </div>
 
 
 
    <!-- Liste des réponses  -->
        
-        <div class="blocsignup"> 
+        <div class="blocanswers"> 
             <div v-for="answer in answers" :key="answer.id">
                 <h3><i class="far fa-user-circle"></i> {{ answer.firstname }} {{ answer.lastname }} </h3>
                 <p> {{ answer.content }} </p> 
@@ -36,8 +36,8 @@
 
         data() {
             return {
-                answer: "",
-                answers: [],
+              
+                answers: []
                
             }
         },
@@ -108,5 +108,44 @@
 h4 {
   text-transform: uppercase;
 }
+.blocanswer {
+   
+  margin: 0 auto;
+  border-radius: 30px; 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.blocanswers {
 
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 30px; 
+  border: 6px solid white;
+  box-shadow: inset 0px 0px 0px 4px grey;
+
+}
+
+.blocanswer i {
+    color: #d44c5c;
+    font-size: 1.75em;
+    padding-right: 45px;
+    text-shadow: -1px 0 1px white, 0 1px 1px white, 1px 0 1px white, 0 -1px 15px white;
+}
+.blocanswer textarea {
+  width: 70%;
+  height: 5em;
+  box-sizing: border-box;  
+  outline: none;
+  
+  border-radius: 30px;
+  padding: 10px;
+  margin: auto;
+  
+}
+
+.blocanswer textarea:focus {
+  border-color: white;
+  box-shadow: 0px 0px 20px grey;
+}
 </style>
