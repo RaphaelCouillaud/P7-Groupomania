@@ -20,7 +20,10 @@ exports.createAnswer = (req, res, next) => {
 
 // Obtention des réponses //
 exports.getAllAnswers = (req, res, next) => {
-    Answer.findAll()
+    Answer.findAll({
+        //include: ["user", "messages"]
+    }
+    )
         .then((answers) => res.status(200).json(answers))
         .catch(error => res.status(400).json({ error }));
 };

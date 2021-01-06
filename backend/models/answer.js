@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Answer.belongsTo(models.Message, {
       foreignKey: 'messageId',
+      //as: 'message',
       onDelete: 'CASCADE', // Si on supprime un message, on supprime ses réponses //
     });
   }
