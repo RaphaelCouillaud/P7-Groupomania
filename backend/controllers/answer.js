@@ -21,6 +21,7 @@ exports.createAnswer = (req, res, next) => {
 // Obtention des réponses //
 exports.getAllAnswers = (req, res, next) => {
     Answer.findAll({
+        where: { messageId: req.params.id }
         //include: ["user", "messages"]
     }
     )
