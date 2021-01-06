@@ -76,8 +76,8 @@ mounted() {
       },
 
 ///////////////////DELETE MESSAGE/////////////////////
-       deleteMessage() {
-           let url = `http://localhost:3000/api/messages/${ this.messageId }`; //PB pour détecter l'id du message sinon OK//
+       deleteMessage(messageid) {
+           let url = `http://localhost:3000/api/messages/${ messageid }`; //PB pour détecter l'id du message sinon OK//
            let options = {
                 method: "DELETE",
                 headers: {
