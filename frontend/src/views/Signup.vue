@@ -108,6 +108,12 @@ button {
  background-color: white;
  color: #0c2444;
 }
+button:hover {
+ transform: scale(1.15);
+	opacity: .85;
+	-webkit-transition: .3s ease-in;
+	transition: .3s ease-out;
+}
 label {
   display: block;
   width: 25%; 

@@ -56,10 +56,13 @@ export default {
                             localStorage.setItem("isAdmin", res.isAdmin);
                             console.log(localStorage)
                             this.$router.push("message");
-                            
-                        }                        
+                            alert(" 🙋‍♂️ Bienvenue sur Groupomania Connect ! Connectez-vous dès à présent ! 🙋‍♀️");                            
+                        }            else {
+                             alert(" 🚨 Mot de passe incorrect ! ");
+                        }            
                     })
                     .catch(error => console.log(error))
+                    
                     }   
               }
      

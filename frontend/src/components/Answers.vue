@@ -11,13 +11,13 @@
 
    <!-- Liste des réponses  -->
        
-        <div class="blocanswers"> 
-            <div v-for="answer in answers" :key="answer.id">
+        <div> 
+            <div v-for="answer in answers" :key="answer.id" class="blocanswers">
                 <h3><i class="far fa-user-circle"></i> {{ answer.firstname }} {{ answer.lastname }} </h3>
-                <p> {{ answer.content }} </p> 
-                <button type="button" @click="deleteAnswer(answer.id)">
+                <p><i class="fas fa-bullhorn"></i>"" {{ answer.content }} "</p> 
+          <!-- DELETE -->   <button v-if="answer.userId == userId || isAdmin == true" type="button" @click="deleteAnswer(answer.id)">
                 <i class="fas fa-times"></i>
-                <!--v-if="userOrAdmin(message)" à rajouter au button--> 
+               
                 </button>       
             </div>
         </div>
@@ -36,7 +36,7 @@
 
         data() {
             return {
-              
+                answer: "",
                 answers: []
                
             }
@@ -44,7 +44,7 @@
         //Passer des données aux composants enfants avec les props//
         props: {
             messageId: Number,
-            messageUserId: Number,
+            messageUserId: Number
         },
         mounted() {
             ///////////////////GET ANSWERS/////////////////////
@@ -91,15 +91,32 @@
                         if (res.ok) {
                             this.content = {}
                         } else {
-                            alert("Réponse envoyée 🖅");
+                            alert("Commentaire envoyé 🖅");
                         }
                     })
 
-                    //.then(window.location.reload())
+                    .then(window.location.reload())
                     .catch(error => console.log(error))
             }
         },
-
+    ///////////////////DELETE ANSWER/////////////////////
+       deleteAnswer(answerId) {
+           let url = ("http://localhost:3000/api/answers/" + answerId)
+           let options = {
+                method: "DELETE",
+                headers: {
+                   'Authorization': 'Bearer ' + localStorage.getItem("token"), 
+                    }
+            };
+            fetch(url, options)
+                .then((response) => {
+                console.log(response);
+                alert("Suppression du commentaire confirmée ! 😢");
+                window.location.reload();
+            })
+               .catch(error => console.log(error))
+        },
+    
 
     } 
     </script>
@@ -109,40 +126,42 @@ h4 {
   text-transform: uppercase;
 }
 .blocanswer {
-   
-  margin: 0 auto;
+   width: 100%;
+  margin: 0;
   border-radius: 30px; 
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-evenly;
+}
+.blocanswer a {
+    width: 10%;
 }
 .blocanswers {
-
+    text-align: center;
   width: 90%;
   margin: 0 auto;
   border-radius: 30px; 
-  border: 6px solid white;
-  box-shadow: inset 0px 0px 0px 4px grey;
-
+  border: 6px solid  #d44c5c;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
-
+.blocanswers i {
+    color: #0c2444;
+}
+.blocanswers p {
+    font-style: italic;
+}
 .blocanswer i {
-    color: #d44c5c;
+    color: white;
     font-size: 1.75em;
-    padding-right: 45px;
-    text-shadow: -1px 0 1px white, 0 1px 1px white, 1px 0 1px white, 0 -1px 15px white;
+   padding-right: 25px;
+    text-shadow: -3px 0 3px #d44c5c, 0 3px 3px  #d44c5c, 3px 0 3px  #d44c5c, 0 -3px 15px  #d44c5c;
+   
 }
-.blocanswer textarea {
-  width: 70%;
-  height: 5em;
-  box-sizing: border-box;  
-  outline: none;
-  
-  border-radius: 30px;
-  padding: 10px;
-  margin: auto;
-  
-}
+
 
 .blocanswer textarea:focus {
   border-color: white;

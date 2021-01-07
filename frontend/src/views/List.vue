@@ -32,6 +32,7 @@ export default {
 <style lang="css">
 .blocsignup h1 {
    margin-top: 0;
+   padding: 10px;
 }
 
 

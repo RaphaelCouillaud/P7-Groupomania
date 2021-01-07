@@ -69,7 +69,7 @@ export default {
                     if(res.ok) {
                         this.inputMessage = {} // Retour à 0 des inputs //
                     }  else {
-                         alert("Message envoyé 🖅");
+                         alert("Message bien reçu 🖅");
                     }         
                 })
                 
