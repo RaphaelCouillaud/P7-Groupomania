@@ -113,6 +113,7 @@ mounted() {
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 30px; 
+  padding: 25px;
 }
 h4 {
   text-transform: uppercase;
@@ -150,6 +151,8 @@ h4 {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  color: white;
+ 
 }
 .blocauthor h3 {
   font-size: 1.5em;

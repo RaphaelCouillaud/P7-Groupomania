@@ -12,7 +12,7 @@
    <!-- Liste des réponses  -->
        
         <div> 
-            <div v-for="answer in answers" :key="answer.id" class="blocanswers">
+            <div v-for="answer in answers" :key="answer.id" class="blocanswers" >
                 <h3><i class="far fa-user-circle"></i> {{ answer.firstname }} {{ answer.lastname }} </h3>
                 <p><i class="fas fa-bullhorn"></i>"" {{ answer.content }} "</p> 
           <!-- DELETE -->   <button v-if="answer.userId == userId || isAdmin == true" type="button" @click="deleteAnswer(answer.id)">
@@ -37,38 +37,38 @@
         data() {
             return {
                 answer: "",
-                answers: []
+                answers: [],
                
             }
         },
         //Passer des données aux composants enfants avec les props//
         props: {
             messageId: Number,
-            messageUserId: Number
+            messageUserId: Number,            
         },
         mounted() {
             ///////////////////GET ANSWERS/////////////////////
-             let url = "http://localhost:3000/api/answers/" + this.messageId + "/display";
-                let options = {
-                    method: "GET",
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                    }
-                };
-                fetch(url, options)
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data)
-                        this.answers = data;
-                        console.log(this.answers)
+            let url = "http://localhost:3000/api/answers/" + this.messageId + "/display";
+            let options = {
+                method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                }
+            };
+            fetch(url, options)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    this.answers = data;
+                    console.log(this.answers)
 
-                    })
-                    .catch(error => console.log(error))
-            },
-        
+                })
+                .catch(error => console.log(error))
+        },
+
 
         methods: {
-               
+
             ///////////////////CREATE ANSWER///////////////////// 
             createAnswer() {
                 let inputContent = {
@@ -99,24 +99,26 @@
                     .catch(error => console.log(error))
             }
         },
-    ///////////////////DELETE ANSWER/////////////////////
-       deleteAnswer(answerId) {
-           let url = ("http://localhost:3000/api/answers/" + answerId)
-           let options = {
+        ///////////////////DELETE ANSWER/////////////////////
+        deleteAnswer(answerId) {
+            let url = ("http://localhost:3000/api/answers/" + answerId)
+            let options = {
                 method: "DELETE",
                 headers: {
-                   'Authorization': 'Bearer ' + localStorage.getItem("token"), 
-                    }
+                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                }
             };
             fetch(url, options)
                 .then((response) => {
-                console.log(response);
-                alert("Suppression du commentaire confirmée ! 😢");
-                window.location.reload();
-            })
-               .catch(error => console.log(error))
+                    console.log(response);
+                    alert("Suppression du commentaire confirmée ! 😢");
+                    window.location.reload();
+                })
+                .catch(error => console.log(error))
         },
-    
+
+
+
 
     } 
     </script>
