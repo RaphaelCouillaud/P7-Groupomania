@@ -1,134 +1,98 @@
 <template>
-<div>    
-    <!-- Répondre  -->
-     <div class="blocanswer">
-          <textarea type="text" id="content" name="content" rows="2" class="form-control" v-model="content" 
-          placeholder="Commentez..."></textarea>
-          <a v-on:click="createAnswer()"><i class="far fa-paper-plane" title="Envoyer"></i></a>          
-    </div>
-
-
-
-   <!-- Liste des réponses  -->
-       
-        <div> 
-            <div v-for="answer in answers" :key="answer.id" class="blocanswers" >
-                <h3><i class="far fa-user-circle"></i> {{ answer.firstname }} {{ answer.lastname }} </h3>
-                <p><i class="fas fa-bullhorn"></i>"" {{ answer.content }} "</p> 
-          <!-- DELETE -->   <button v-if="answer.userId == userId || isAdmin == true" type="button" @click="deleteAnswer(answer.id)">
-                <i class="fas fa-times"></i>
-               
-                </button>       
+        <div>    
+            <!-- Répondre  -->
+            <div class="blocanswer">
+                <textarea type="text" id="content" name="content" rows="2" class="form-control" v-model="content" 
+                placeholder="Insérer votre nom puis votre commentaire svp..."></textarea>
+                <a v-on:click="createAnswer()"><i class="far fa-paper-plane" title="Envoyer"></i></a>          
             </div>
+
+        <!-- Liste des réponses  -->
+                <div> 
+                    <div v-for="answer in answers" :key="answer.id" class="blocanswers" >                        
+                        <p> {{ answer.content }} </p>           
+                    </div>
+                </div>
         </div>
-
-</div>
-
-  
 </template>
 
 
 <script >
 
-    export default {
-        name: "Answers",
+export default {
+    name: "Answers",
 
-
-        data() {
-            return {
-                answer: "",
-                answers: [],
-               
+    data() {
+        return {
+            answer: "",
+            answers: [],
+        }
+    },
+    //Passer des données aux composants enfants avec les props//
+    props: {
+        messageId: Number,
+        messageUserId: Number,
+    },
+    mounted() {
+        ///////////////////GET ANSWERS/////////////////////
+        let url = "http://localhost:3000/api/answers/" + this.messageId + "/display";
+        let options = {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token"),
             }
-        },
-        //Passer des données aux composants enfants avec les props//
-        props: {
-            messageId: Number,
-            messageUserId: Number,            
-        },
-        mounted() {
-            ///////////////////GET ANSWERS/////////////////////
-            let url = "http://localhost:3000/api/answers/" + this.messageId + "/display";
+        };
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                this.answers = data;
+                console.log(this.answers)
+
+            })
+            .catch(error => console.log(error))
+    },
+
+
+    methods: {
+        ///////////////////CREATE ANSWER///////////////////// 
+        createAnswer() {
+            let inputContent = {
+                "content": this.content,
+                "messageId": this.messageId
+            }
+            let url = "http://localhost:3000/api/answers/new"
             let options = {
-                method: "GET",
+                method: "POST",
+                body: JSON.stringify(inputContent),
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem("token"),
+                    'Content-Type': 'application/json'
                 }
-            };
+            }
             fetch(url, options)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    this.answers = data;
-                    console.log(this.answers)
-
-                })
-                .catch(error => console.log(error))
-        },
-
-
-        methods: {
-
-            ///////////////////CREATE ANSWER///////////////////// 
-            createAnswer() {
-                let inputContent = {
-                    "content": this.content,
-                    "messageId": this.messageId
-                }
-                let url = "http://localhost:3000/api/answers/new"
-                let options = {
-                    method: "POST",
-                    body: JSON.stringify(inputContent),
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                        'Content-Type': 'application/json'
+                .then(res => res.json())
+                .then((res) => {
+                    console.log(res)
+                    if (res.ok) {
+                        this.content = {}
+                    } else {
+                        alert("Commentaire envoyé 🖅");
                     }
-                }
-                fetch(url, options)
-                    .then(res => res.json())
-                    .then((res) => {
-                        console.log(res)
-                        if (res.ok) {
-                            this.content = {}
-                        } else {
-                            alert("Commentaire envoyé 🖅");
-                        }
-                    })
-
-                    .then(window.location.reload())
-                    .catch(error => console.log(error))
-            }
-        },
-        ///////////////////DELETE ANSWER/////////////////////
-        deleteAnswer(answerId) {
-            let url = ("http://localhost:3000/api/answers/" + answerId)
-            let options = {
-                method: "DELETE",
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                }
-            };
-            fetch(url, options)
-                .then((response) => {
-                    console.log(response);
-                    alert("Suppression du commentaire confirmée ! 😢");
-                    window.location.reload();
                 })
+                .then(window.location.reload())
                 .catch(error => console.log(error))
-        },
-
-
-
-
-    } 
-    </script>
+        }
+    },
+}
+</script>
 
 <style lang="css">
 h4 {
   text-transform: uppercase;
 }
 .blocanswer {
-   width: 100%;
+  width: 100%;
   margin: 0;
   border-radius: 30px; 
   display: flex;
@@ -137,12 +101,13 @@ h4 {
   justify-content: space-evenly;
 }
 .blocanswer a {
-    width: 10%;
+  width: 10%;
 }
 .blocanswers {
-    text-align: center;
+  text-align: center;
   width: 90%;
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 10px;
   border-radius: 30px; 
   border: 6px solid  #d44c5c;
   display: flex;
@@ -151,20 +116,17 @@ h4 {
   justify-content: center;
 }
 .blocanswers i {
-    color: #0c2444;
+  color: #0c2444;
 }
 .blocanswers p {
-    font-style: italic;
+  font-style: italic;
 }
 .blocanswer i {
-    color: white;
-    font-size: 1.75em;
-   padding-right: 25px;
-    text-shadow: -3px 0 3px #d44c5c, 0 3px 3px  #d44c5c, 3px 0 3px  #d44c5c, 0 -3px 15px  #d44c5c;
-   
+  color: white;
+  font-size: 1.75em;
+  padding-right: 25px;
+  text-shadow: -3px 0 3px #d44c5c, 0 3px 3px  #d44c5c, 3px 0 3px  #d44c5c, 0 -3px 15px  #d44c5c;
 }
-
-
 .blocanswer textarea:focus {
   border-color: white;
   box-shadow: 0px 0px 20px grey;

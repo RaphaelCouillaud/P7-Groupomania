@@ -1,7 +1,6 @@
 <template>
      
-          <div class="blocsignup">
-          
+          <div class="blocsignup">          
             <h2>Pour rejoindre la communauté, merci de remplir ce formulaire</h2>
             <form v-on:submit.prevent="signup" id="form-signup" >
               <div class="form-group">
@@ -42,8 +41,8 @@
 
 export default {
     name: 'Signup',
-      
-   data () {
+
+    data() {
         return {
             inputSignup: {
                 lastname: "",
@@ -55,40 +54,40 @@ export default {
         }
     },
     methods: {
-        signup () {
+        signup() {
             let inputDatas = {
-                    "lastname": this.inputSignup.lastname,
-                    "firstname": this.inputSignup.firstname,
-                    "jobtitle": this.inputSignup.jobtitle,
-                    "email": this.inputSignup.email,
-                    "password": this.inputSignup.password
-                }
-                console.log(inputDatas)
+                "lastname": this.inputSignup.lastname,
+                "firstname": this.inputSignup.firstname,
+                "jobtitle": this.inputSignup.jobtitle,
+                "email": this.inputSignup.email,
+                "password": this.inputSignup.password
+            }
+            console.log(inputDatas)
             let url = "http://localhost:3000/api/auth/signup"
             let options = {
-                    method: "POST",
-                    body: JSON.stringify(inputDatas),
-                    headers: {'Content-Type': 'application/json'}
+                method: "POST",
+                body: JSON.stringify(inputDatas),
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-                console.log(options)
+            }
+            console.log(options)
             fetch(url, options)
-                    .then(res => res.json())
-                    .then((res) => {
-                        /*if (res.userId && res.token){*/
-                           localStorage.setItem("userId", res.userId);
-                            localStorage.setItem("token", res.token);
-                             console.log(localStorage)
-                            this.$router.push("/");
-                            alert(" 🙋‍♂️ Bienvenue sur Groupomania Connect ! Connectez-vous dès à présent ! 🙋‍♀️");
-                            
-                        /*} */                    
-                    })
+                .then(res => res.json())
+                .then((res) => {
+                    /*if (res.userId && res.token){*/
+                    localStorage.setItem("userId", res.userId);
+                    localStorage.setItem("token", res.token);
+                    console.log(localStorage)
+                    this.$router.push("/");
+                    alert(" 🙋‍♂️ Bienvenue sur Groupomania Connect ! Connectez-vous dès à présent ! 🙋‍♀️");
+
+                    /*} */
+                })
                 .catch(error => console.log(error))
-                    }   
-              }
-     
-   
-}    
+        }
+    }
+}
 </script>
 
 <style lang="css">
@@ -97,19 +96,19 @@ form {
 	margin-top: 25px;
 }
 button {
-    width: 120px;
-    height: 40px;
-    box-shadow: inset 0px 0px 0px 4px white;
+  width: 120px;
+  height: 40px;
+  box-shadow: inset 0px 0px 0px 4px white;
   border: 6px solid #d44c5c;
   border-radius: 30px;
   padding: 10px;
   font-family: 'Press Start 2P', cursive;  
- margin: 15px 0px 25px 0px;
- background-color: white;
- color: #0c2444;
+  margin: 15px 0px 25px 0px;
+  background-color: white;
+  color: #0c2444;
 }
 button:hover {
- transform: scale(1.15);
+  transform: scale(1.15);
 	opacity: .85;
 	-webkit-transition: .3s ease-in;
 	transition: .3s ease-out;
@@ -133,7 +132,6 @@ input, textarea {
   padding: 10px;
   margin: auto;
 }
-
 input:focus, textarea:focus {
   border-color: white;
   box-shadow: 0px 0px 20px #d44c5c;
@@ -143,8 +141,7 @@ input:focus, textarea:focus {
   justify-content: flex-start;
   padding-bottom: 15px;
   margin: auto;
- 
-}
+ }
 .blocsignup {
   color: white;
   margin: auto;
@@ -160,7 +157,6 @@ input:focus, textarea:focus {
   background-repeat: no-repeat;
   background-size: cover;
   align-items: center;
-  
 }
 .blocsignup p, .blocsignup h2 {
 	color: white;
@@ -178,11 +174,10 @@ input:focus, textarea:focus {
 .navlogsign a:hover, .navlogsign a:focus {
   color: #d44c5c;
 }
-
 @media screen and (max-width: 768px) {
-	.blocsignup {
-    width: 80%; 
-}
+    .blocsignup {
+      width: 80%; 
+  }
 }
 @media screen and (max-width: 450px) {
 	.blocsignup {
@@ -192,13 +187,13 @@ input:focus, textarea:focus {
   font-size: 0.7em;
 }
  .form-group {
-   display: flex;
-   flex-direction: column;
+  display: flex;
+  flex-direction: column;
    
  }
 label, input, textarea {
   width: 75%;
   text-align: center;
-}
+  }
 }
 </style>

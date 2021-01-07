@@ -22,18 +22,11 @@ export default {
         ListMessages
     },
 }
-
 </script>
   
-
-
-
-
 <style lang="css">
 .blocsignup h1 {
    margin-top: 0;
    padding: 10px;
 }
-
-
 </style>

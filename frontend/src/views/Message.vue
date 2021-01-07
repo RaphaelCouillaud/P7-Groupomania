@@ -1,9 +1,9 @@
 <template>
      <section>
          <Navbar></Navbar>
-          <Giffinder></Giffinder>
+          <Bulb></Bulb>
           <div class="blocsignup">          
-            <h2>Exprimez-vous !</h2>
+            <h2>Exprimez-vous ! Partagez !</h2>
             <form id="form-signup" >
               <div class="form-group">
                 <label for="title">Titre du message :</label>
@@ -22,37 +22,37 @@
 
 <script>
 import Navbar from '../components/Navbar'
-import Giffinder from '../components/Giffinder'
+import Bulb from '../components/Bulb'
 export default {
     name: 'Message',
     components: {
         Navbar,
-        Giffinder
+        Bulb
     },
-    
-    data () {
+
+    data() {
         return {
-            inputMessage : {
+            inputMessage: {
                 title: "",
                 content: "",
             },
             userId: ""
         }
     },
-    
+
     mounted() {
-        this.userId = JSON.parse(localStorage.getItem("userId")); 
-        console.log(this.userId)       
+        this.userId = JSON.parse(localStorage.getItem("userId"));
+        console.log(this.userId)
     },
-    
+
     methods: {
         sendMessage() {
             let deliverMessage = {
-                    "title": this.inputMessage.title,
-                    "content": this.inputMessage.content,
-                    "userId": this.userId
-                }
-                console.log(deliverMessage)
+                "title": this.inputMessage.title,
+                "content": this.inputMessage.content,
+                "userId": this.userId
+            }
+            console.log(deliverMessage)
             let url = "http://localhost:3000/api/messages/new"
             let options = {
                 method: "POST",
@@ -64,21 +64,20 @@ export default {
             }
             fetch(url, options)
                 .then(res => res.json())
-               .then((res) => {
+                .then((res) => {
                     console.log(res)
-                    if(res.ok) {
+                    if (res.ok) {
+                        window.location.reload();
                         this.inputMessage = {} // Retour à 0 des inputs //
-                    }  else {
-                         alert("Message bien reçu 🖅");
-                    }         
+                    } else {
+                        alert("Message bien reçu 🖅");
+                    }
                 })
-                
-                .then(this.$router.push("/list"))               
-            .catch(error => console.log(error))
-            }
+                .then(this.$router.push("/list"))
+                .catch(error => console.log(error))
         }
+    }
 }
-
 </script>
 
 <style lang="css">
@@ -92,7 +91,7 @@ section {
     margin-bottom: 25px;
 }
 a {
-    cursor: auto;
+    cursor: pointer;
 }
 textarea {
     height: auto;
