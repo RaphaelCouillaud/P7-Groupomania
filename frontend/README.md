@@ -1,24 +1,17 @@
-# connect
+💡 P7 - Créez un réseau social d'entreprise
 
-## Project setup
-```
-npm install
-```
+Scénario : Vous êtes développeur depuis plus d'un an chez CONNECT-E, une petite agence web regroupant une douzaine d'employés. Votre directrice, Stéphanie, invite toute l'agence à prendre un verre pour célébrer une bonne nouvelle ! Elle vient de signer un contrat pour un nouveau projet ambitieux ! 🥂 Le client en question est Groupomania, un groupe spécialisé dans la grande distribution et l'un des plus fidèles clients de l'agence.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+👉 Fonctionnalités : Le client souhaite que ses employés écrivent et/ou partagent des articles avec leurs collègues sur des sujets qui les intéressent comme pour Reddit.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+👉 Technologies utilisées : Framework VUE js / Nodejs / Sequelize / mySQL /
 
-### Lints and fixes files
-```
-npm run lint
-```
+👉 Installation : git clone
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+👉 Front-End cd frontend npm install npm run serve
+
+👉 Database Sequelize-CLI DB Migrate DB Create
+
+👉 Back-End cd backend npm install nodemon server
+
+👉 Droits Administrateur Via mySQL, taper la commande suivante => UPDATE user SET isAdmin = 1 WHERE id = ❓ ; ❓ => insérer le numéro du salarié concerné
