@@ -1,4 +1,5 @@
 //const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
+const db = require('../models');
 const { Message } = require('../models/index');
 //const fs = require ('fs'); // Création et gestion des fichiers //
 
@@ -45,8 +46,22 @@ exports.deleteMessage = (req, res, next) => {
 
 // Obtention d'un message //
 exports.getOneMessage = (req, res, next) => {
-    Message.findOne({ where: { id: req.params.id }})
-        .then((message) => res.status(200).json(message))
+    db.Messages.findByPk(req.params.id,
+        {
+            include: [
+                {
+                    model: db.Users,
+                    attributes: ['firstname', 'lastname']
+                },
+                {
+                    model: db.Answers,
+                    attributes: ['content'],
+                    include: { model: db.Users, attributes: ['firstname', 'lastname'] }
+                },
+            ]
+        }
+    )
+        .then(message => res.status(200).json(message))
         .catch(error => res.status(404).json({ error }));
 };
 
