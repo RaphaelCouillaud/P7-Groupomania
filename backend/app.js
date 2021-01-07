@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser'); // Pour extraire l'objet JSON de la demande //
+const bodyParser = require('body-parser');
 const path = require('path');
 
 // Importation des routeurs //

@@ -1,26 +1,24 @@
 const bcrypt = require('bcrypt'); // Hashage de passwords //
 const jwt = require('jsonwebtoken'); // Sécurisation de la connection grâce à des tokens uniques //
-//const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
+
 const { User } = require('../models/index'); // Importation du modèle User //
 
-// Voir regex - front ou back ?//
+// Regex
 const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}/;
 const regexPassword = /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
 // Exportation des fonctions //
 // Fonction signup, sauvegarde d'un nouvel utilisateur //
-exports.signup = (req, res, next) => {
-    //res.status(201).json(req.body)//
+exports.signup = (req, res, next) => {    
     if (req.body.email == null || req.body.password == null || req.body.lastname == null || req.body.firstname == null) {
         return res.status(400).json({ 'error': 'Données incomplètes' });
-    } //Vérification de la présence des paramètres dans la requête//
+    } 
     if (!regexEmail.test(req.body.email)) {
         return res.status(400).json({ 'error': 'Email non validé' });
     }
     if (!regexPassword.test(req.body.password)) {
         return res.status(400).json({ 'error': 'Mot de passe non validé' });
-    }
-    
+    }    
         User.findOne({
         attributes: ['email'],
         where: { email: req.body.email }
@@ -28,15 +26,15 @@ exports.signup = (req, res, next) => {
         .then((user) => {
             if (!user) {
     bcrypt.hash(req.body.password, 10)  //Fonction pour hasher un mot de passe fonction async//
-        .then(hash => { // On récupére le hash //
+        .then(hash => { 
             console.log(hash)           
-             const signUser = User.create ({//On prend ce mot de passe crypté pour créer un nouvel utilisateur //
-                email: req.body.email, // Avec l'adresse mail passé - Payload, on renseigne tout ce qui nous intéresse//
+             const signUser = User.create ({
+                email: req.body.email, 
                 password : hash,
                 lastname : req.body.lastname,
                 firstname : req.body.firstname,
                 jobtitle : req.body.jobtitle,
-                isAdmin: req.body.isAdmin // Rajout Admin à renseigner en DB//
+                isAdmin: req.body.isAdmin 
             })
                 .then((user) => {
                     console.log(user) 
@@ -51,12 +49,12 @@ exports.signup = (req, res, next) => {
 
 // Fonction login //
 exports.login = (req, res, next) => {
-    User.findOne({ where : {email: req.body.email }}) // Trouver si un utilisateur correspond à l'adresse envoyé dans la requête //
+    User.findOne({ where : {email: req.body.email }}) 
         .then(user => {
-            if (!user) { // Pas d'user trouvé //
+            if (!user) { 
                 return res.status(401).json({ error: 'Utilisateur inconnu !' });
             }
-            bcrypt.compare(req.body.password, user.password) // On compare le password envoyé avec la password hashé //
+            bcrypt.compare(req.body.password, user.password) 
                 .then(valid => {
                     if (!valid) {
                         return res.status(401).json({ error: 'Mot de passe incorrect !' });
@@ -80,7 +78,7 @@ exports.login = (req, res, next) => {
     
 // Suppression d'un compte //
 exports.deleteAccount = (req, res, next) => {
-    User.findOne({ where: { id: req.params.id }})  // On trouve l'objet dans la base de données //
+    User.findOne({ where: { id: req.params.id }})  
       .then((user) => {
           User.destroy({ where: { id: req.params.id }}) // Méthode //
                     .then(() => res.status(200).json({ message: 'Compte supprimé' }))
@@ -100,9 +98,6 @@ exports.getOneAccount = (req, res, next) => {
 exports.modifyAccount = (req, res, next) => { 
     User.findOne({ where: { id: req.params.id }})
         .then((user) => {
-            //if (req.userId == req.params.id) { 
-           // email = req.body.email; // Avec l'adresse mail passé //
-            //password : hash; On ne peut pas modifier le mot de passe ?//
             lastname = req.body.lastname;
             firstname = req.body.firstname;
             jobtitle = req.body.jobtitle;

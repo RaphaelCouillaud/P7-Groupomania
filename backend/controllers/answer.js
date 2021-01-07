@@ -1,10 +1,4 @@
-//const connectmysql = require('../configdb/connectmysql'); // Connection base de données //
 const { Answer } = require('../models/index');
-
-//router.post('/', auth, multer, answerControl.createAnswer);//
-//router.get('/', auth, answerControl.getAllAnswers);//
-//router.delete('/:id', auth, answerControl.deleteAnswer);//
-//router.get('/:id', auth, answerControl.getOneAnswer);//
 
 // Création d'une réponse //
 exports.createAnswer = (req, res, next) => {

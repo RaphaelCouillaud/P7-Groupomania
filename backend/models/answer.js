@@ -4,7 +4,6 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   var Answer = sequelize.define('Answer', {
     content: DataTypes.TEXT,
-    //date: DataTypes.DATE,//
     messageId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER
   });
@@ -17,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     Answer.belongsTo(models.Message, {
       foreignKey: 'messageId',
-      //as: 'message',
       onDelete: 'CASCADE', // Si on supprime un message, on supprime ses réponses //
     });
   }
