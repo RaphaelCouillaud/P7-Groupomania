@@ -9,10 +9,10 @@ Le client en question est Groupomania, un groupe spécialisé dans la grande dis
 Le client souhaite que ses employés écrivent et/ou partagent des articles avec leurs collègues sur des sujets qui les intéressent comme pour Reddit. 
 
 👉 Technologies utilisées :
-Framework VUE js
-Nodejs
-Sequelize
-mySQL
+Framework VUE js /
+Nodejs /
+Sequelize /
+mySQL /
 
 👉 Installation : 
 git clone
