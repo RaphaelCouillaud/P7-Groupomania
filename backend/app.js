@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const helmet = require('helmet');
 
 // Importation des routeurs //
 const userRoutes = require("./routes/user"); // Importation de la route user //
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json()); // App requiert BodyParser //
-
+app.use(helmet());
 app.use('/images', express.static(path.join(__dirname, 'images'))); // Pour toute requête envoyée à /images/, on sert ce dossier statique image //
 
 // Enregistrement des routeurs //
